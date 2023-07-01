@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (5.7.1)
+  - SSZipArchive (2.5.4)
+  - SwiftFormat/CLI (0.51.11)
+  - SwiftLint (0.52.2)
+
+DEPENDENCIES:
+  - Alamofire
+  - SSZipArchive
+  - SwiftFormat/CLI (~> 0.49)
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - SSZipArchive
+    - SwiftFormat
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  SSZipArchive: 285b618a158ebc421039c22db5b77d345c7c03db
+  SwiftFormat: 5c722f77243cf74af91d1c587b5b2d744441f557
+  SwiftLint: 1ac76dac888ca05cb0cf24d0c85887ec1209961d
+
+PODFILE CHECKSUM: 92fc90192f0fa816f97f56608d370ba041569c0d
+
+COCOAPODS: 1.11.3
