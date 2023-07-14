@@ -223,18 +223,20 @@ extension String {
         instance[keyPath: path] = self
     }
     
-    func assignDateTo<InstanceType, FieldType>(
+    func assignDateComponentsTo<InstanceType, FieldType>(
         _ instance: inout InstanceType,
         for field: FieldType)
     throws where FieldType: KeyPathVending {
-        guard let path = field.path as? WritableKeyPath<InstanceType, Date?>
+        guard let path = field.path as? WritableKeyPath<InstanceType, DateComponents?>
         else {
             throw TransitAssignError.invalidPath
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
-        dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        instance[keyPath: path] = dateFormatter.date(from: self)
+        let components = self.split(separator: ":")
+        if components.count >= 3 {
+            instance[keyPath: path] =  DateComponents(hour: Int(components[0]), minute: Int(components[1]), second: Int(components[2]))
+        }
     }
     
     func assignOptionalIntTo<InstanceType, FieldType>(

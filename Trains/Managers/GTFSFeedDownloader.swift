@@ -19,6 +19,20 @@ class GTFSManager {
     func setUpApp(stops: Stops) async {
         do {
             _ = try unzipFile(destinationURL: GTFSManager.downloadLocation)
+//            let trips = try Trips(from: FileManager.default.temporaryDirectory.appendingPathComponent("trips.txt"))
+//            var tripDict: [String:Trip] = [:]
+//            for trip in trips.trips {
+//                tripDict[trip.tripID] = trip
+//            }
+//            saveDataAsJson(data: tripDict, fileLocationToSave: FileManager.default.temporaryDirectory.appendingPathComponent("trips.json"))
+//
+//            let calendar = try GTFSCalendar(from: FileManager.default.temporaryDirectory.appendingPathComponent("calendar.txt"))
+//            var calDict: [String:CalendarRow] = [:]
+//            for cal in calendar.serviceAvailability {
+//                calDict[cal.service_id] = cal
+//            }
+//            saveDataAsJson(data: calDict, fileLocationToSave: FileManager.default.temporaryDirectory.appendingPathComponent("calendar.json"))
+
             var stopTimes: StopTimes? = try StopTimes(from: FileManager.default.temporaryDirectory.appendingPathComponent("stop_times.txt"))
             var dict: [String:[StopTime]] = [:]
             for stopTime in stopTimes! {
@@ -28,12 +42,15 @@ class GTFSManager {
                     dict[stopTime.stopID] = [stopTime]
                 }
             }
+            // for each stop time, for each trip, add a day of the week and the time
+            
+            
             stopTimes = nil
             for key in dict.keys{
                 dict[key] = dict[key]?.sorted{ stopTime1, stopTime2 in
-                    let t1 = stopTime1.arrival ?? Date.distantPast
-                    let t2 = stopTime2.arrival ?? Date.distantPast
-                    return t1.compare(t2) == .orderedAscending
+                    let t1 = stopTime1.arrival ?? DateComponents()
+                    let t2 = stopTime2.arrival ?? DateComponents()
+                    return t1 < t2
                 }
                 saveDataAsJson(data: dict[key], fileLocationToSave: FileManager.default.temporaryDirectory.appendingPathComponent("stoptimes").appendingPathComponent("stop_times_\(key).json"))
             }
@@ -80,6 +97,27 @@ class GTFSManager {
             return stops
         }
     }
+    
+    func parseTrips(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) async throws -> [String:Trip]? {
+        if let url = Bundle.main.url(forResource: "trips", withExtension: "json") {
+            let data = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+            let trips = try decoder.decode([String:Trip].self, from: data)
+            return trips
+        }
+        return nil
+    }
+    
+    func parseCal(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) async throws -> [String:CalendarRow]? {
+        if let url = Bundle.main.url(forResource: "calendar", withExtension: "json") {
+            let data = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+            let cal = try decoder.decode([String:CalendarRow].self, from: data)
+            return cal
+        }
+        return nil
+    }
+    
     
     // Function to download GTFS data from a ZIP file
     func makeZipFileApiCall(fromURL url: URL) async throws -> Data {

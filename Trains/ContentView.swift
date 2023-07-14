@@ -16,15 +16,15 @@ struct ContentView: View {
     
     @State private var state = AppState.loading
     @State private var fromStop: Stop = Stop()
-    @State private var toStop: Stop = Stop()
     @State private var stops: Stops?
-    
+
     func fetchData() {
         Task {
             do  {
                 self.stops = try await GTFSManager().parseStops()
-//                await GTFSManager().setUpApp(stops: self.stops!)
+                //                await GTFSManager().setUpApp(stops: self.stops!)
                 state = .success
+                
             } catch {
                 state = .error
                 print(error)
@@ -53,13 +53,7 @@ struct ContentView: View {
                         .tag(stop)
                 }
             }
-            Picker("From", selection: $toStop) {
-                ForEach(stops.stops, id: \.self) { stop in
-                    Text(stop.name ?? "No Name for Station: \(stop.stopID)")
-                        .tag(stop)
-                }
-            }
-            NavigationLink(destination: StopView(fromStop: fromStop, toStop: toStop)) {
+            NavigationLink(destination: StopView(fromStop: fromStop)) {
                 Text("Go to Detail")
                     .padding()
                     .background(Color.blue)

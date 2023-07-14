@@ -199,7 +199,7 @@ extension Trip: CustomStringConvertible {
 public struct Trips: Identifiable, Codable{
   public let id = UUID()
   public var headerFields = [TripField]()
-  fileprivate var trips = [Trip]()
+  public var trips = [Trip]()
 
   subscript(index: Int) -> Trip {
     get {

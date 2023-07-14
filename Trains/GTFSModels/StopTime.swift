@@ -74,8 +74,8 @@ public enum StopTimeField: String, Hashable, KeyPathVending, Codable {
 public struct StopTime: Hashable, Identifiable, Codable {
     public var id = UUID()
     public var tripID: TransitID = ""
-    public var arrival: Date?
-    public var departure: Date?
+    public var arrival: DateComponents?
+    public var departure: DateComponents?
     public var stopID: TransitID = ""
     public var stopSequenceNumber: UInt = 0
     public var stopHeadingSign: String?
@@ -90,8 +90,8 @@ public struct StopTime: Hashable, Identifiable, Codable {
     
     public init(
         tripID: TransitID = "",
-        arrival: Date? = nil,
-        departure: Date? = nil,
+        arrival: DateComponents? = nil,
+        departure: DateComponents? = nil,
         stopID: TransitID = "",
         stopSequenceNumber: UInt = 0,
         stopHeadingSign: String? = nil,
@@ -135,7 +135,7 @@ public struct StopTime: Hashable, Identifiable, Codable {
                 case .stopSequenceNumber:
                     try field.`assignUIntTo`(&self, for: header)
                 case .arrival, .departure:
-                    try field.assignDateTo(&self, for: header)
+                    try field.assignDateComponentsTo(&self, for: header)
                 case .pickupType, .dropOffType,
                         .continuousPickup, .continuousDropOff,
                         .timePointType:
@@ -150,17 +150,11 @@ public struct StopTime: Hashable, Identifiable, Codable {
     }
     
     func getArrivalTime() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss" // Format to display just the time
-        dateFormatter.timeZone = TimeZone(identifier: "UTC") // Set the current timezone or your desired timezone
-        return self.arrival != nil ? dateFormatter.string(from: self.arrival!) : "No Time"
+        return arrival?.description ?? "No Time"
     }
     
     func getDepartureTime() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"// Format to display just the time
-        dateFormatter.timeZone = TimeZone(identifier: "UTC") // Set the current timezone or your desired timezone
-        return self.departure != nil ? dateFormatter.string(from: self.departure!) : "No Time"
+        return departure?.description ?? "No Time"
     }
     
     enum CodingKeys: CodingKey {
@@ -205,8 +199,8 @@ public struct StopTime: Hashable, Identifiable, Codable {
         
         self.id = try container.decode(UUID.self, forKey: StopTime.CodingKeys.id)
         self.tripID = try container.decode(TransitID.self, forKey: StopTime.CodingKeys.tripID)
-        self.arrival = try container.decodeIfPresent(Date.self, forKey: StopTime.CodingKeys.arrival)
-        self.departure = try container.decodeIfPresent(Date.self, forKey: StopTime.CodingKeys.departure)
+        self.arrival = try container.decodeIfPresent(DateComponents.self, forKey: StopTime.CodingKeys.arrival)
+        self.departure = try container.decodeIfPresent(DateComponents.self, forKey: StopTime.CodingKeys.departure)
         self.stopID = try container.decode(TransitID.self, forKey: StopTime.CodingKeys.stopID)
         self.stopSequenceNumber = try container.decode(UInt.self, forKey: StopTime.CodingKeys.stopSequenceNumber)
         self.stopHeadingSign = try container.decodeIfPresent(String.self, forKey: StopTime.CodingKeys.stopHeadingSign)
@@ -223,7 +217,6 @@ public struct StopTime: Hashable, Identifiable, Codable {
 
 extension StopTime: Equatable {
     public static func == (lhs: StopTime, rhs: StopTime) -> Bool {
-        return
         lhs.tripID == rhs.tripID &&
         lhs.stopID == rhs.stopID
     }
@@ -238,7 +231,7 @@ extension StopTime: CustomStringConvertible {
 // MARK: - StopTimes
 
 /// - Tag: StopTimes
-public struct StopTimes: Identifiable, Codable {
+public class StopTimes: Identifiable, Codable {
     public let id = UUID()
     public var headerFields = [StopTimeField]()
     public var stopTimes = [StopTime]()
@@ -266,12 +259,12 @@ public struct StopTimes: Identifiable, Codable {
         }
     }
     
-    mutating func add(_ stopTime: StopTime) {
+    func add(_ stopTime: StopTime) {
         // TODO: Add to header fields supported by this collection
         self.stopTimes.append(stopTime)
     }
     
-    mutating func remove(_ stopTime: StopTime) {
+    func remove(_ stopTime: StopTime) {
     }
     
     init<S: Sequence>(_ sequence: S)
@@ -292,7 +285,9 @@ public struct StopTimes: Identifiable, Codable {
             self.stopTimes.reserveCapacity(records.count - 1)
             for stopTimeRecord in records[1 ..< records.count] {
                 let stopTime = try StopTime(from: String(stopTimeRecord), using: headerFields)
-                self.add(stopTime)
+                if stopTime.dropOffType == 0 || stopTime.pickupType == 0 {
+                    self.add(stopTime)
+                }
             }
         } catch let error {
             throw error

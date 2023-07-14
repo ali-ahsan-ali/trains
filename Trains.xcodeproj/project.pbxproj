@@ -24,6 +24,8 @@
 		413DC9442A35C6A900BB9334 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC93C2A35C6A900BB9334 /* Stop.swift */; };
 		413DC9452A35C6A900BB9334 /* Agency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC93D2A35C6A900BB9334 /* Agency.swift */; };
 		413DC9462A35C6A900BB9334 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC93E2A35C6A900BB9334 /* Route.swift */; };
+		4142FC3E2A617233003F6514 /* trips.json in Resources */ = {isa = PBXBuildFile; fileRef = 4142FC3C2A617233003F6514 /* trips.json */; };
+		4142FC3F2A617233003F6514 /* calendar.json in Resources */ = {isa = PBXBuildFile; fileRef = 4142FC3D2A617233003F6514 /* calendar.json */; };
 		418DDFB32A543FF500077CFA /* stop_times_2145644.json in Resources */ = {isa = PBXBuildFile; fileRef = 418DDC792A543FF000077CFA /* stop_times_2145644.json */; };
 		418DDFB42A543FF500077CFA /* stop_times_2141312.json in Resources */ = {isa = PBXBuildFile; fileRef = 418DDC7A2A543FF000077CFA /* stop_times_2141312.json */; };
 		418DDFB52A543FF500077CFA /* stop_times_2460143.json in Resources */ = {isa = PBXBuildFile; fileRef = 418DDC7B2A543FF000077CFA /* stop_times_2460143.json */; };
@@ -851,6 +853,8 @@
 		418DE2EB2A543FF800077CFA /* stop_times_2760302.json in Resources */ = {isa = PBXBuildFile; fileRef = 418DDFB12A543FF300077CFA /* stop_times_2760302.json */; };
 		418DE2EC2A543FF800077CFA /* stop_times_2212161.json in Resources */ = {isa = PBXBuildFile; fileRef = 418DDFB22A543FF300077CFA /* stop_times_2212161.json */; };
 		4199EEBD2A52F1FC0013EE02 /* stops.json in Resources */ = {isa = PBXBuildFile; fileRef = 4199EEBC2A52F1FC0013EE02 /* stops.json */; };
+		41A4CA892A6159F100496D42 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4CA882A6159F100496D42 /* Calendar.swift */; };
+		41A4CA8B2A61610F00496D42 /* DateComponents+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4CA8A2A61610F00496D42 /* DateComponents+Extensions.swift */; };
 		41F772272A51381B009D90A3 /* StopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F772262A51381B009D90A3 /* StopView.swift */; };
 		9CDAE35ADB907ABE3986DEF1 /* Pods_TrainsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC9E8C8770F653DD8C0188D0 /* Pods_TrainsTests.framework */; };
 /* End PBXBuildFile section */
@@ -892,6 +896,8 @@
 		413DC93C2A35C6A900BB9334 /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		413DC93D2A35C6A900BB9334 /* Agency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Agency.swift; sourceTree = "<group>"; };
 		413DC93E2A35C6A900BB9334 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		4142FC3C2A617233003F6514 /* trips.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trips.json; sourceTree = "<group>"; };
+		4142FC3D2A617233003F6514 /* calendar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = calendar.json; sourceTree = "<group>"; };
 		418DDC792A543FF000077CFA /* stop_times_2145644.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stop_times_2145644.json; sourceTree = "<group>"; };
 		418DDC7A2A543FF000077CFA /* stop_times_2141312.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stop_times_2141312.json; sourceTree = "<group>"; };
 		418DDC7B2A543FF000077CFA /* stop_times_2460143.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stop_times_2460143.json; sourceTree = "<group>"; };
@@ -1719,6 +1725,8 @@
 		418DDFB12A543FF300077CFA /* stop_times_2760302.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stop_times_2760302.json; sourceTree = "<group>"; };
 		418DDFB22A543FF300077CFA /* stop_times_2212161.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stop_times_2212161.json; sourceTree = "<group>"; };
 		4199EEBC2A52F1FC0013EE02 /* stops.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stops.json; sourceTree = "<group>"; };
+		41A4CA882A6159F100496D42 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		41A4CA8A2A61610F00496D42 /* DateComponents+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Extensions.swift"; sourceTree = "<group>"; };
 		41F772262A51381B009D90A3 /* StopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopView.swift; sourceTree = "<group>"; };
 		6D26B78C0EC945A5704913CF /* Pods-TrainsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainsTests.release.xcconfig"; path = "Target Support Files/Pods-TrainsTests/Pods-TrainsTests.release.xcconfig"; sourceTree = "<group>"; };
 		779BCD7F4AF755CD37FAB0D5 /* Pods-Trains-TrainsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trains-TrainsUITests.debug.xcconfig"; path = "Target Support Files/Pods-Trains-TrainsUITests/Pods-Trains-TrainsUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1771,15 +1779,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		411EA0832A52D5C600EB16B5 /* Stops.Bundle */ = {
-			isa = PBXGroup;
-			children = (
-				4199EEBC2A52F1FC0013EE02 /* stops.json */,
-			);
-			name = Stops.Bundle;
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		413DC8FE2A35C5F700BB9334 = {
 			isa = PBXGroup;
 			children = (
@@ -1805,8 +1804,10 @@
 		413DC9092A35C5F700BB9334 /* Trains */ = {
 			isa = PBXGroup;
 			children = (
+				4142FC3D2A617233003F6514 /* calendar.json */,
+				4142FC3C2A617233003F6514 /* trips.json */,
+				4199EEBC2A52F1FC0013EE02 /* stops.json */,
 				418DDC782A543FF000077CFA /* StopTimes.Bundle */,
-				411EA0832A52D5C600EB16B5 /* Stops.Bundle */,
 				413DC9472A35C6E700BB9334 /* Models */,
 				413DC9372A35C6A900BB9334 /* Extensions */,
 				413DC9342A35C6A800BB9334 /* Managers */,
@@ -1857,6 +1858,7 @@
 			isa = PBXGroup;
 			children = (
 				413DC9382A35C6A900BB9334 /* String+Substring.swift */,
+				41A4CA8A2A61610F00496D42 /* DateComponents+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1869,6 +1871,7 @@
 				413DC93C2A35C6A900BB9334 /* Stop.swift */,
 				413DC93D2A35C6A900BB9334 /* Agency.swift */,
 				413DC93E2A35C6A900BB9334 /* Route.swift */,
+				41A4CA882A6159F100496D42 /* Calendar.swift */,
 			);
 			path = GTFSModels;
 			sourceTree = "<group>";
@@ -2987,6 +2990,7 @@
 				418DE29F2A543FF700077CFA /* stop_times_211962.json in Resources */,
 				418DE1032A543FF600077CFA /* stop_times_207191.json in Resources */,
 				418DE26E2A543FF700077CFA /* stop_times_25875.json in Resources */,
+				4142FC3F2A617233003F6514 /* calendar.json in Resources */,
 				418DE0BD2A543FF600077CFA /* stop_times_2304311.json in Resources */,
 				418DE0ED2A543FF600077CFA /* stop_times_2166271.json in Resources */,
 				418DE0552A543FF600077CFA /* stop_times_20295P2.json in Resources */,
@@ -3389,6 +3393,7 @@
 				418DDFE32A543FF500077CFA /* stop_times_2259921.json in Resources */,
 				418DE1A02A543FF700077CFA /* stop_times_2340108.json in Resources */,
 				418DE1982A543FF700077CFA /* stop_times_2000344.json in Resources */,
+				4142FC3E2A617233003F6514 /* trips.json in Resources */,
 				418DE15C2A543FF600077CFA /* stop_times_2020101.json in Resources */,
 				418DE2072A543FF700077CFA /* stop_times_2259912.json in Resources */,
 				418DE1452A543FF600077CFA /* stop_times_2519132.json in Resources */,
@@ -3789,6 +3794,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41A4CA8B2A61610F00496D42 /* DateComponents+Extensions.swift in Sources */,
 				413DC9422A35C6A900BB9334 /* StopTime.swift in Sources */,
 				413DC9452A35C6A900BB9334 /* Agency.swift in Sources */,
 				413DC93F2A35C6A900BB9334 /* GTFSFeedDownloader.swift in Sources */,
@@ -3796,6 +3802,7 @@
 				41F772272A51381B009D90A3 /* StopView.swift in Sources */,
 				413DC90D2A35C5F700BB9334 /* ContentView.swift in Sources */,
 				413DC9442A35C6A900BB9334 /* Stop.swift in Sources */,
+				41A4CA892A6159F100496D42 /* Calendar.swift in Sources */,
 				413DC90B2A35C5F700BB9334 /* TrainsApp.swift in Sources */,
 				413DC9412A35C6A900BB9334 /* String+Substring.swift in Sources */,
 				413DC9432A35C6A900BB9334 /* Trip.swift in Sources */,
