@@ -8,16 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedStop: Stop = Stop()
-    @State private var feed: Feed?
+    enum AppState {
+        case loading
+        case success
+        case error
+    }
+    
+    @State private var state = AppState.loading
+    @State private var fromStop: Stop = Stop()
+    @State private var toStop: Stop = Stop()
+    @State private var stops: Stops?
     
     func fetchData() {
         Task {
-            if let retrievedStops = await GTFSManager().retrieve(url: "https://api.transport.nsw.gov.au/v1/gtfs/schedule/sydneytrains") {
-                self.feed = retrievedStops
-            } else {
-                // Handle case where stops couldn't be retrieved
-                self.feed = nil
+            do  {
+                self.stops = try await GTFSManager().parseStops()
+//                await GTFSManager().setUpApp(stops: self.stops!)
+                state = .success
+            } catch {
+                state = .error
+                print(error)
             }
         }
     }
@@ -25,10 +35,39 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("HELP")
+                content()
             }
         }.onAppear {
             fetchData()
+        }.navigationBarTitle("Home")
+    }
+    
+    @ViewBuilder
+    func content() -> some View {
+        if state == .loading{
+            Text("Loading")
+        }else if let stops{
+            Picker("From", selection: $fromStop) {
+                ForEach(stops.stops, id: \.self) { stop in
+                    Text(stop.name ?? "No Name for Station: \(stop.stopID)")
+                        .tag(stop)
+                }
+            }
+            Picker("From", selection: $toStop) {
+                ForEach(stops.stops, id: \.self) { stop in
+                    Text(stop.name ?? "No Name for Station: \(stop.stopID)")
+                        .tag(stop)
+                }
+            }
+            NavigationLink(destination: StopView(fromStop: fromStop, toStop: toStop)) {
+                Text("Go to Detail")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+        }else {
+            Text("ERROR")
         }
     }
 }

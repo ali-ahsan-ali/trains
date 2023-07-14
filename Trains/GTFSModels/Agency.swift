@@ -21,7 +21,7 @@ import Foundation
 /// ```swift
 ///   let gtfsField = AgencyField.locale.rawValue  //  Returns "agency_lang"
 /// ```
-public enum AgencyField: String, Hashable, KeyPathVending, Encodable, Decodable {
+public enum AgencyField: String, Hashable, KeyPathVending, Codable {
   /// Agency ID field.
   case agencyID = "agency_id"
   /// Agency name field.
@@ -59,7 +59,7 @@ public enum AgencyField: String, Hashable, KeyPathVending, Encodable, Decodable 
 // MARK: - Agency
 
 /// A representation of an Agency record.
-public struct Agency: Hashable, Identifiable, Encodable, Decodable {
+public struct Agency: Hashable, Identifiable, Codable {
 	
   /// A globally unique identifier. Because GTFS does not guarantee
   /// that IDs will be unique
@@ -233,7 +233,7 @@ extension Agency: CustomDebugStringConvertible {
 // MARK: - Agencies
 
 /// A representation of a complete Agency dataset.
-public struct Agencies: Identifiable, RandomAccessCollection, Encodable, Decodable {
+public struct Agencies: Identifiable, RandomAccessCollection, Codable {
 	public var startIndex: Int = 0
 	
 	public var endIndex: Int = 0

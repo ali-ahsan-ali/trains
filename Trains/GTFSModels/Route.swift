@@ -107,8 +107,8 @@ public struct Route: Hashable, Identifiable, Codable{
   public var details: String?
   public var type: RouteType = .bus
   public var url: URL?
-  public var color: CodableCGColor?
-  public var textColor: CodableCGColor?
+  public var color: CGColor?
+  public var textColor: CGColor?
   public var sortOrder: UInt?
   public var pickupPolicy: PickupDropOffPolicy?
   public var dropOffPolicy: PickupDropOffPolicy?
@@ -143,8 +143,8 @@ public struct Route: Hashable, Identifiable, Codable{
     self.details = details
     self.type = type
     self.url = url
-    self.color = CodableCGColor(cgColor: color)
-    self.textColor = CodableCGColor(cgColor: textColor)
+    self.color = color
+    self.textColor = textColor
     self.sortOrder = sortOrder
     self.pickupPolicy = pickupPolicy
     self.dropOffPolicy = dropOffPolicy
@@ -221,8 +221,8 @@ public struct Route: Hashable, Identifiable, Codable{
         try container.encode(details, forKey: .details)
         try container.encode(type, forKey: .type)
         try container.encode(url, forKey: .url)
-        try container.encode(color, forKey: .color)
-        try container.encode(textColor, forKey: .textColor)
+        try container.encode(CodableCGColor(cgColor: color), forKey: .color)
+        try container.encode(CodableCGColor(cgColor: textColor), forKey: .textColor)
         try container.encode(sortOrder, forKey: .sortOrder)
         try container.encode(pickupPolicy, forKey: .pickupPolicy)
         try container.encode(dropOffPolicy, forKey: .dropOffPolicy)
@@ -240,8 +240,8 @@ public struct Route: Hashable, Identifiable, Codable{
         details = try container.decodeIfPresent(String.self, forKey: .details)
         type = try container.decode(RouteType.self, forKey: .type)
         url = try container.decodeIfPresent(URL.self, forKey: .url)
-        color = try container.decodeIfPresent(CodableCGColor.self, forKey: .color)
-        textColor = try container.decodeIfPresent(CodableCGColor.self, forKey: .textColor)
+        color = try container.decodeIfPresent(CodableCGColor.self, forKey: .color)?.cgColor
+        textColor = try container.decodeIfPresent(CodableCGColor.self, forKey: .textColor)?.cgColor
         sortOrder = try container.decodeIfPresent(UInt.self, forKey: .sortOrder)
         pickupPolicy = try container.decodeIfPresent(PickupDropOffPolicy.self, forKey: .pickupPolicy)
         dropOffPolicy = try container.decodeIfPresent(PickupDropOffPolicy.self, forKey: .dropOffPolicy)
@@ -295,7 +295,7 @@ extension Route: CustomStringConvertible {
 // MARK: - Routes
 
 /// A representation of a complete Route dataset.
-public struct Routes: Identifiable, Encodable, Decodable {
+public struct Routes: Identifiable, Codable {
   public let id = UUID()
   public var headerFields = [RouteField]()
 	public var routes: [Route] = []
