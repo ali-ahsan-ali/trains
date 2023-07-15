@@ -1,8 +1,8 @@
 PODS:
   - Alamofire (5.7.1)
   - SSZipArchive (2.5.4)
-  - SwiftFormat/CLI (0.51.11)
-  - SwiftLint (0.52.2)
+  - SwiftFormat/CLI (0.51.12)
+  - SwiftLint (0.52.4)
 
 DEPENDENCIES:
   - Alamofire
@@ -20,8 +20,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   SSZipArchive: 285b618a158ebc421039c22db5b77d345c7c03db
-  SwiftFormat: 5c722f77243cf74af91d1c587b5b2d744441f557
-  SwiftLint: 1ac76dac888ca05cb0cf24d0c85887ec1209961d
+  SwiftFormat: a5bbe21e2794b5a914f548ec651f28f2ab8be099
+  SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
 PODFILE CHECKSUM: 92fc90192f0fa816f97f56608d370ba041569c0d
 

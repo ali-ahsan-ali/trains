@@ -347,8 +347,7 @@ public class Stops: Identifiable, Codable{
                 if stop.parentStationID == nil{
                     self.stops.append(stop)
                 }else{
-                    var parentStop = self.stops.first(where: {$0.stopID == stop.parentStationID})
-                    if let parentStop{
+                    if let parentStop = self.stops.first(where: {$0.stopID == stop.parentStationID}){
                         parentStop.childStops.append(stop)
                     }
                 }

@@ -19,9 +19,9 @@ class GTFSManager {
     func setUpApp(stops: Stops) async {
         do {
             _ = try unzipFile(destinationURL: GTFSManager.downloadLocation)
-//            let trips = try Trips(from: FileManager.default.temporaryDirectory.appendingPathComponent("trips.txt"))
+//            let trips1 = try Trips(from: FileManager.default.temporaryDirectory.appendingPathComponent("trips.txt"))
 //            var tripDict: [String:Trip] = [:]
-//            for trip in trips.trips {
+//            for trip in trips1.trips {
 //                tripDict[trip.tripID] = trip
 //            }
 //            saveDataAsJson(data: tripDict, fileLocationToSave: FileManager.default.temporaryDirectory.appendingPathComponent("trips.json"))
@@ -32,14 +32,36 @@ class GTFSManager {
 //                calDict[cal.service_id] = cal
 //            }
 //            saveDataAsJson(data: calDict, fileLocationToSave: FileManager.default.temporaryDirectory.appendingPathComponent("calendar.json"))
-
+            let trips = try parseTrips()
+            let cal = try parseCal()
             var stopTimes: StopTimes? = try StopTimes(from: FileManager.default.temporaryDirectory.appendingPathComponent("stop_times.txt"))
             var dict: [String:[StopTime]] = [:]
             for stopTime in stopTimes! {
-                if dict.keys.contains(stopTime.stopID){
-                    dict[stopTime.stopID]?.append(stopTime)
+                var stopTimes: [StopTime] = []
+                if let serviceID = trips?[stopTime.tripID]?.serviceID,
+                   let calRow = cal?[serviceID] {
+                    for dayOfWeek in calRow.weekDays{
+                        var copy = stopTime
+                        if let hour = copy.arrival?.hour, copy.arrival?.weekday != nil, hour >= 24 {
+                            copy.arrival?.weekday! = (dayOfWeek + 1) % 7
+                            copy.departure?.weekday! = (dayOfWeek + 1) % 7
+                            copy.arrival?.hour! -= 24
+                        }else {
+                            copy.arrival?.weekday = dayOfWeek
+                            copy.departure?.weekday = dayOfWeek
+                        }
+                        copy.startDate = calRow.start_date
+                        copy.endDate = calRow.end_date
+                        stopTimes.append(copy)
+                    }
                 }else {
-                    dict[stopTime.stopID] = [stopTime]
+                    stopTimes = [stopTime]
+                }
+                
+                if dict.keys.contains(stopTime.stopID){
+                    dict[stopTime.stopID]?.append(contentsOf: stopTimes)
+                }else {
+                    dict[stopTime.stopID] = stopTimes
                 }
             }
             // for each stop time, for each trip, add a day of the week and the time
@@ -60,30 +82,38 @@ class GTFSManager {
         
     }
     
-    func parseFromStopTimes(fromDirectory directory: URL =  FileManager.default.temporaryDirectory, stop: Stop) async throws{
+    func parseStopTimes(stop: Stop) async throws -> [String: [Date]]{
+        var childStopDates: [String: [Date]] = [:]
         for index in stop.childStops.indices {
             if let url = Bundle.main.url(forResource: "stop_times_\(stop.childStops[index].stopID)", withExtension: "json"){
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
-                let stopTime = try decoder.decode([StopTime].self, from: data)
-                stop.childStops[index].stopTimes = stopTime.filter({$0.pickupType == 0 || $0.pickupType == nil})
+                var stopTimes = try decoder.decode([StopTime].self, from: data)
+                
+                stopTimes = stopTimes.filter({$0.pickupType == 0 || $0.pickupType == nil})
+
+                var times: [Date] = []
+                stopTimes.forEach { stopTime in
+                    var arrival = stopTime.arrival
+                    arrival?.calendar = .current
+                    arrival?.timeZone = TimeZone(identifier: "Australia/Sydney")
+                    if arrival?.weekday == 7 && arrival?.hour ?? 1 >= 16 && arrival?.minute ?? 1 > 30 {
+                        print("ADFA")
+                    }
+                    guard let arrival = arrival else {return }
+                    guard let nextDate = Calendar.current.nextDate(after: Date(), matching: arrival, matchingPolicy: .nextTime) else { return }
+                    guard nextDate < stopTime.endDate ?? Date.distantFuture && nextDate > stopTime.startDate ?? Date.distantPast else { return }
+                    times.append(nextDate)
+                }
+                times = times.sorted()
+                childStopDates[stop.childStops[index].stopID] = times
             }
         }
-    }
-    
-    func parseToStopTimes(fromDirectory directory: URL =  FileManager.default.temporaryDirectory, stop: Stop) async throws{
-        for index in stop.childStops.indices {
-            if let url = Bundle.main.url(forResource: "stop_times_\(stop.childStops[index].stopID)", withExtension: "json"){
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let stopTime = try decoder.decode([StopTime].self, from: data)
-                stop.childStops[index].stopTimes = stopTime.filter({$0.dropOffType == 0 || $0.dropOffType == nil})
-            }
-        }
+        return childStopDates
     }
     
     func parseStops(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) async throws -> Stops {
-        if let url = Bundle.main.url(forResource: "stop", withExtension: "json"), false {
+        if let url = Bundle.main.url(forResource: "stop", withExtension: "json") {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
             let stops = try decoder.decode(Stops.self, from: data)
@@ -98,7 +128,7 @@ class GTFSManager {
         }
     }
     
-    func parseTrips(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) async throws -> [String:Trip]? {
+    func parseTrips(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) throws -> [String:Trip]? {
         if let url = Bundle.main.url(forResource: "trips", withExtension: "json") {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
@@ -108,7 +138,7 @@ class GTFSManager {
         return nil
     }
     
-    func parseCal(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) async throws -> [String:CalendarRow]? {
+    func parseCal(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) throws -> [String:CalendarRow]? {
         if let url = Bundle.main.url(forResource: "calendar", withExtension: "json") {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()

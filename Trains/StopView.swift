@@ -15,22 +15,15 @@ struct StopView: View {
     }
     
     @State private var state = AppState.loading
-    @State public var fromStop: Stop
-    @State private var cal: [String:CalendarRow]?
-    @State private var trips: [String:Trip]?
+    @State public var stop: Stop
+    @State private var stopTimes: [String:[Date]]?
 
     func fetchData() {
         state = .loading
         Task {
             do  {
-                try await GTFSManager().parseFromStopTimes(stop: fromStop)
-                self.cal = try await GTFSManager().parseCal()
-                self.trips = try await GTFSManager().parseTrips()
-                if self.cal != nil && self.trips != nil {
-                    state = .success
-                }else {
-                    state = .error
-                }
+                stopTimes = try await GTFSManager().parseStopTimes(stop: stop)
+                state = .success
             } catch {
                 state = .error
                 print(error)
@@ -52,17 +45,20 @@ struct StopView: View {
     func content() -> some View {
         if state == .loading{
             Text("Loading")
-        } else if self.fromStop.childStops.first?.stopTimes != nil {
-            Text(self.fromStop.name ?? "No Station Name")
-            ForEach(self.fromStop.childStops, id: \.self) { childStop in
-                Text(platformName(parentName:self.fromStop.name, childName:childStop.name))
-                List(childStop.stopTimes.filter {$0.pickupType == 0 || $0.pickupType == nil }) { stopTime in
-                    Text(stopTime.getArrivalTime())
-                }
+        } else if self.stop.childStops.first?.stopTimes != nil {
+            Text(self.stop.name ?? "No Station Name")
+            ForEach(self.stop.childStops, id: \.self) { childStop in
+                childStopView(childStop: childStop)
             }
         }else {
             Text("ERROR")
         }
+    }
+    
+    @ViewBuilder
+    func childStopView (childStop: Stop) -> some View {
+        Text(platformName(parentName:self.stop.name, childName:childStop.name))
+        Text(stopTimes?[childStop.stopID]?.first?.description(with: .current)  ?? "No Time")
     }
     
     func platformName(parentName: String?, childName: String?) -> String {
@@ -82,6 +78,6 @@ struct StopView: View {
 }
 struct StopView_Previews: PreviewProvider {
     static var previews: some View {
-        StopView(fromStop: Stop())
+        StopView(stop: Stop())
     }
 }

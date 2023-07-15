@@ -58,6 +58,18 @@ public class CalendarRow: Hashable, Identifiable, Codable{
         self.end_date = end_date
     }
     
+    var weekDays: [Int] {
+        var weekDays: [Int] = []
+        if sunday { weekDays.append(1)}
+        if monday { weekDays.append(2)}
+        if tuesday { weekDays.append(3)}
+        if wednesday { weekDays.append(4)}
+        if thursday { weekDays.append(5)}
+        if friday { weekDays.append(6)}
+        if saturday { weekDays.append(7)}
+        return weekDays
+    }
+    
     public static let requiredFields: Set =
     [StopField.stopID]
     
@@ -89,10 +101,12 @@ public class CalendarRow: Hashable, Identifiable, Codable{
                 case .start_date:
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyyMMdd"
+                    dateFormatter.timeZone = TimeZone(identifier: "Australia/Sydney")
                     self.start_date = dateFormatter.date(from: field)
                 case .end_date:
                     let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyyMMdd"
+                    dateFormatter.timeZone = .current
+                    dateFormatter.timeZone = TimeZone(identifier: "Australia/Sydney")
                     self.end_date = dateFormatter.date(from: field)
                 }
             }
@@ -113,7 +127,7 @@ public class CalendarRow: Hashable, Identifiable, Codable{
         lhs.service_id == rhs.service_id
     }
     public var description: String {
-        return "Stop: \(self.service_id)"
+        return "Row: \(self.service_id) \(self.weekDays) \(String(describing: self.start_date)) \(String(describing: self.end_date))"
     }
         
 }

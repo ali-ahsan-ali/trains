@@ -22,7 +22,7 @@ struct ContentView: View {
         Task {
             do  {
                 self.stops = try await GTFSManager().parseStops()
-                //                await GTFSManager().setUpApp(stops: self.stops!)
+//                await GTFSManager().setUpApp(stops: self.stops!)
                 state = .success
                 
             } catch {
@@ -53,7 +53,7 @@ struct ContentView: View {
                         .tag(stop)
                 }
             }
-            NavigationLink(destination: StopView(fromStop: fromStop)) {
+            NavigationLink(destination: StopView(stop: fromStop)) {
                 Text("Go to Detail")
                     .padding()
                     .background(Color.blue)

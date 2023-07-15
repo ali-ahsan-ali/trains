@@ -197,7 +197,7 @@ extension Trip: CustomStringConvertible {
 
 /// - Tag: Trips
 public struct Trips: Identifiable, Codable{
-  public let id = UUID()
+    public var id = UUID()
   public var headerFields = [TripField]()
   public var trips = [Trip]()
 

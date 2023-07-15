@@ -86,7 +86,9 @@ public struct StopTime: Hashable, Identifiable, Codable {
     public var distanceTraveledForShape: Double?
     public var timePointType: Int?
     public var nonstandard: String? = nil
-    
+    public var startDate: Date? = nil
+    public var endDate: Date? = nil
+
     
     public init(
         tripID: TransitID = "",
@@ -100,7 +102,9 @@ public struct StopTime: Hashable, Identifiable, Codable {
         continuousPickup: Int? = nil,
         continuousDropOff: Int? = nil,
         distanceTraveledForShape: Double? = nil,
-        timePointType: Int? = nil
+        timePointType: Int? = nil,
+        startDate: Date? = nil,
+        endDate: Date? = nil
     ) {
         self.tripID = tripID
         self.arrival = arrival
@@ -114,6 +118,8 @@ public struct StopTime: Hashable, Identifiable, Codable {
         self.continuousDropOff = continuousDropOff
         self.distanceTraveledForShape = distanceTraveledForShape
         self.timePointType = timePointType
+        self.startDate = startDate
+        self.endDate = endDate
     }
     
     init(
@@ -172,6 +178,8 @@ public struct StopTime: Hashable, Identifiable, Codable {
         case distanceTraveledForShape
         case timePointType
         case nonstandard
+        case startDate
+        case endDate
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -191,6 +199,8 @@ public struct StopTime: Hashable, Identifiable, Codable {
         try container.encodeIfPresent(self.distanceTraveledForShape, forKey: StopTime.CodingKeys.distanceTraveledForShape)
         try container.encodeIfPresent(self.timePointType, forKey: StopTime.CodingKeys.timePointType)
         try container.encodeIfPresent(self.nonstandard, forKey: StopTime.CodingKeys.nonstandard)
+        try container.encodeIfPresent(self.startDate, forKey: StopTime.CodingKeys.startDate)
+        try container.encodeIfPresent(self.endDate, forKey: StopTime.CodingKeys.endDate)
     }
     
     
@@ -211,20 +221,22 @@ public struct StopTime: Hashable, Identifiable, Codable {
         self.distanceTraveledForShape = try container.decodeIfPresent(Double.self, forKey: StopTime.CodingKeys.distanceTraveledForShape)
         self.timePointType = try container.decodeIfPresent(Int.self, forKey: StopTime.CodingKeys.timePointType)
         self.nonstandard = try container.decodeIfPresent(String.self, forKey: StopTime.CodingKeys.nonstandard)
-        
+        self.startDate = try container.decodeIfPresent(Date.self, forKey: StopTime.CodingKeys.startDate)
+        self.endDate = try container.decodeIfPresent(Date.self, forKey: StopTime.CodingKeys.endDate)
     }
 }
 
 extension StopTime: Equatable {
     public static func == (lhs: StopTime, rhs: StopTime) -> Bool {
         lhs.tripID == rhs.tripID &&
-        lhs.stopID == rhs.stopID
+        lhs.stopID == rhs.stopID &&
+        lhs.arrival == rhs.arrival
     }
 }
 
 extension StopTime: CustomStringConvertible {
     public var description: String {
-        return "StopTime: \(self.tripID) \(self.stopID)"
+        return "StopTime: \(self.tripID) \(self.stopID) \(String(describing: self.endDate)) \(String(describing: self.startDate)) \(self.getArrivalTime()) \(self.getDepartureTime())"
     }
 }
 
