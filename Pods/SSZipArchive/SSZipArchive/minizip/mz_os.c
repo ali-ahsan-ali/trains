@@ -33,9 +33,7 @@ int32_t mz_path_combine(char *path, const char *join, int32_t max_path) {
         path[max_path - 1] = 0;
     } else {
         mz_path_append_slash(path, max_path, MZ_PATH_SLASH_PLATFORM);
-        path_len = (int32_t)strlen(path);
-        if (max_path > path_len)
-            strncat(path, join, max_path - path_len - 1);
+        strncat(path, join, max_path - path_len);
     }
 
     return MZ_OK;
@@ -279,17 +277,17 @@ int32_t mz_path_get_filename(const char *path, const char **filename) {
 
 int32_t mz_dir_make(const char *path) {
     int32_t err = MZ_OK;
-    size_t len = 0;
+    int16_t len = 0;
     char *current_dir = NULL;
     char *match = NULL;
     char hold = 0;
 
 
-    len = strlen(path);
-    if (len <= 0 || len > INT16_MAX)
+    len = (int16_t)strlen(path);
+    if (len <= 0)
         return 0;
 
-    current_dir = (char *)MZ_ALLOC(len + 1);
+    current_dir = (char *)MZ_ALLOC((uint16_t)len + 1);
     if (current_dir == NULL)
         return MZ_MEM_ERROR;
 

@@ -58,7 +58,9 @@ struct StopView: View {
     @ViewBuilder
     func childStopView (childStop: Stop) -> some View {
         Text(platformName(parentName:self.stop.name, childName:childStop.name))
-        Text(stopTimes?[childStop.stopID]?.first?.description(with: .current)  ?? "No Time")
+        ForEach(stopTimes?[childStop.stopID]?.prefix(10) ?? [], id: \.self) { time in
+            Text(time.description(with: .current))
+        }
     }
     
     func platformName(parentName: String?, childName: String?) -> String {
