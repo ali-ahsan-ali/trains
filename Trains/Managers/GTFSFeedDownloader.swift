@@ -38,8 +38,8 @@ class GTFSManager {
             var dict: [String:[StopTime]] = [:]
             for stopTime in stopTimes! {
                 var stopTimes: [StopTime] = []
-                if let serviceID = trips?[stopTime.tripID]?.serviceID,
-                   let calRow = cal?[serviceID] {
+                if let serviceID = trips[stopTime.tripID]?.serviceID,
+                   let calRow = cal[serviceID] {
                     for dayOfWeek in calRow.weekDays{
                         var copy = stopTime
                         if let hour = copy.arrival?.hour, copy.arrival?.weekday != nil, hour >= 24 {
@@ -83,25 +83,21 @@ class GTFSManager {
     }
     
     func parseStopTimes(stop: Stop) async throws -> [String: [Date]]{
+        let date = Calendar.current.date(byAdding: .minute, value: -10, to: Date()) ?? Date()
         var childStopDates: [String: [Date]] = [:]
         for index in stop.childStops.indices {
             if let url = Bundle.main.url(forResource: "stop_times_\(stop.childStops[index].stopID)", withExtension: "json"){
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 var stopTimes = try decoder.decode([StopTime].self, from: data)
-                
-                stopTimes = stopTimes.filter({$0.pickupType == 0 || $0.pickupType == nil})
 
                 var times: [Date] = []
                 stopTimes.forEach { stopTime in
-                    var arrival = stopTime.arrival
-                    arrival?.calendar = .current
-                    arrival?.timeZone = TimeZone(identifier: "Australia/Sydney")
-                    if arrival?.weekday == 7 && arrival?.hour ?? 1 >= 16 && arrival?.minute ?? 1 > 30 {
-                        print("ADFA")
-                    }
-                    guard let arrival = arrival else {return }
-                    guard let nextDate = Calendar.current.nextDate(after: Date(), matching: arrival, matchingPolicy: .nextTime) else { return }
+                    guard stopTime.pickupType == 0 || stopTime.pickupType == nil else { return }
+                    guard var arrival = stopTime.arrival else {return }
+                    arrival.calendar = .current
+                    arrival.timeZone = TimeZone(identifier: "Australia/Sydney")
+                    guard let nextDate = Calendar.current.nextDate(after: date, matching: arrival, matchingPolicy: .nextTime) else { return }
                     guard nextDate < stopTime.endDate ?? Date.distantFuture && nextDate > stopTime.startDate ?? Date.distantPast else { return }
                     times.append(nextDate)
                 }
@@ -113,39 +109,35 @@ class GTFSManager {
     }
     
     func parseStops(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) async throws -> Stops {
-        if let url = Bundle.main.url(forResource: "stop", withExtension: "json") {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let stops = try decoder.decode(Stops.self, from: data)
-            return stops
-        } else{
-            let url = URL(string: "https://api.transport.nsw.gov.au/v1/gtfs/schedule/sydneytrains")!
-            let data = try await makeZipFileApiCall(fromURL: url)
-            let file = try saveDataAsZIPAndReturnUnzippedFile(data: data, destinationURL: GTFSManager.downloadLocation)
-            let stops = try Stops(from: file.appendingPathComponent("stops.txt"))
-            saveDataAsJson(data: stops, fileLocationToSave: FileManager.default.temporaryDirectory.appendingPathComponent("stops.json"))
-            return stops
-        }
+        let url = Bundle.main.url(forResource: "stops", withExtension: "json")!
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        let stops = try decoder.decode(Stops.self, from: data)
+        return stops
+//        } else{
+//            let url = URL(string: "https://api.transport.nsw.gov.au/v1/gtfs/schedule/sydneytrains")!
+//            let data = try await makeZipFileApiCall(fromURL: url)
+//            let file = try saveDataAsZIPAndReturnUnzippedFile(data: data, destinationURL: GTFSManager.downloadLocation)
+//            let stops = try Stops(from: file.appendingPathComponent("stops.txt"))
+//            saveDataAsJson(data: stops, fileLocationToSave: FileManager.default.temporaryDirectory.appendingPathComponent("stops.json"))
+//            return stops
+//        }
     }
     
-    func parseTrips(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) throws -> [String:Trip]? {
-        if let url = Bundle.main.url(forResource: "trips", withExtension: "json") {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let trips = try decoder.decode([String:Trip].self, from: data)
-            return trips
-        }
-        return nil
+    func parseTrips(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) throws -> [String:Trip] {
+        let url = Bundle.main.url(forResource: "trips", withExtension: "json")!
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        let trips = try decoder.decode([String:Trip].self, from: data)
+        return trips
     }
     
-    func parseCal(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) throws -> [String:CalendarRow]? {
-        if let url = Bundle.main.url(forResource: "calendar", withExtension: "json") {
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let cal = try decoder.decode([String:CalendarRow].self, from: data)
-            return cal
-        }
-        return nil
+    func parseCal(fromDirectory directory: URL =  FileManager.default.temporaryDirectory) throws -> [String:CalendarRow] {
+        let url = Bundle.main.url(forResource: "calendar", withExtension: "json")!
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        let cal = try decoder.decode([String:CalendarRow].self, from: data)
+        return cal
     }
     
     

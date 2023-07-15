@@ -30,24 +30,12 @@ public enum StopTimeField: String, Hashable, KeyPathVending, Codable {
     case departure = "departure_time"
     /// Stop ID field.
     case stopID = "stop_id"
-    /// Stop sequence number field.
-    case stopSequenceNumber = "stop_sequence"
     /// Stop heading sign field.
     case stopHeadingSign = "stop_headsign"
     /// Stop pickup type field.
     case pickupType = "pickup_type"
     /// Stop drop off type field.
     case dropOffType = "drop_off_type"
-    /// Stop continuous pickup field.
-    case continuousPickup = "continuous_pickup"
-    /// Stop continuous drop off field.
-    case continuousDropOff = "continuous_drop_off"
-    /// Stop distance traveled for shape field.
-    case distanceTraveledForShape = "shape_dist_traveled"
-    /// Stop time point type field.
-    case timePointType = "timepoint"
-    /// Used when a nonstandard field is found within a GTFS feed.
-    case nonstandard = "nonstandard"
     
     internal var path: AnyKeyPath {
         switch self {
@@ -55,15 +43,9 @@ public enum StopTimeField: String, Hashable, KeyPathVending, Codable {
         case .arrival: return \StopTime.arrival
         case .departure: return \StopTime.departure
         case .stopID: return \StopTime.stopID
-        case .stopSequenceNumber: return \StopTime.stopSequenceNumber
         case .stopHeadingSign: return \StopTime.stopHeadingSign
         case .pickupType: return \StopTime.pickupType
         case .dropOffType: return \StopTime.dropOffType
-        case .continuousPickup: return \StopTime.continuousPickup
-        case .continuousDropOff: return \StopTime.continuousDropOff
-        case .distanceTraveledForShape: return \StopTime.distanceTraveledForShape
-        case .timePointType: return \StopTime.timePointType
-        case .nonstandard: return \StopTime.nonstandard
         }
     }
 }
@@ -77,15 +59,9 @@ public struct StopTime: Hashable, Identifiable, Codable {
     public var arrival: DateComponents?
     public var departure: DateComponents?
     public var stopID: TransitID = ""
-    public var stopSequenceNumber: UInt = 0
     public var stopHeadingSign: String?
     public var pickupType: Int?
     public var dropOffType: Int?
-    public var continuousPickup: Int?
-    public var continuousDropOff: Int?
-    public var distanceTraveledForShape: Double?
-    public var timePointType: Int?
-    public var nonstandard: String? = nil
     public var startDate: Date? = nil
     public var endDate: Date? = nil
 
@@ -95,14 +71,9 @@ public struct StopTime: Hashable, Identifiable, Codable {
         arrival: DateComponents? = nil,
         departure: DateComponents? = nil,
         stopID: TransitID = "",
-        stopSequenceNumber: UInt = 0,
         stopHeadingSign: String? = nil,
         pickupType: Int? = nil,
         dropOffType: Int? = nil,
-        continuousPickup: Int? = nil,
-        continuousDropOff: Int? = nil,
-        distanceTraveledForShape: Double? = nil,
-        timePointType: Int? = nil,
         startDate: Date? = nil,
         endDate: Date? = nil
     ) {
@@ -110,14 +81,9 @@ public struct StopTime: Hashable, Identifiable, Codable {
         self.arrival = arrival
         self.departure = departure
         self.stopID = stopID
-        self.stopSequenceNumber = stopSequenceNumber
         self.stopHeadingSign = stopHeadingSign
         self.pickupType = pickupType
         self.dropOffType = dropOffType
-        self.continuousPickup = continuousPickup
-        self.continuousDropOff = continuousDropOff
-        self.distanceTraveledForShape = distanceTraveledForShape
-        self.timePointType = timePointType
         self.startDate = startDate
         self.endDate = endDate
     }
@@ -138,16 +104,10 @@ public struct StopTime: Hashable, Identifiable, Codable {
                     try field.assignStringTo(&self, for: header)
                 case .stopHeadingSign:
                     try field.assignOptionalStringTo(&self, for: header)
-                case .stopSequenceNumber:
-                    try field.`assignUIntTo`(&self, for: header)
                 case .arrival, .departure:
                     try field.assignDateComponentsTo(&self, for: header)
-                case .pickupType, .dropOffType,
-                        .continuousPickup, .continuousDropOff,
-                        .timePointType:
+                case .pickupType, .dropOffType:
                     try field.assignOptionalIntTo(&self, for: header)
-                case .nonstandard, .distanceTraveledForShape:
-                    continue
                 }
             }
         } catch let error {
@@ -190,15 +150,9 @@ public struct StopTime: Hashable, Identifiable, Codable {
         try container.encodeIfPresent(self.arrival, forKey: StopTime.CodingKeys.arrival)
         try container.encodeIfPresent(self.departure, forKey: StopTime.CodingKeys.departure)
         try container.encode(self.stopID, forKey: StopTime.CodingKeys.stopID)
-        try container.encode(self.stopSequenceNumber, forKey: StopTime.CodingKeys.stopSequenceNumber)
         try container.encodeIfPresent(self.stopHeadingSign, forKey: StopTime.CodingKeys.stopHeadingSign)
         try container.encodeIfPresent(self.pickupType, forKey: StopTime.CodingKeys.pickupType)
         try container.encodeIfPresent(self.dropOffType, forKey: StopTime.CodingKeys.dropOffType)
-        try container.encodeIfPresent(self.continuousPickup, forKey: StopTime.CodingKeys.continuousPickup)
-        try container.encodeIfPresent(self.continuousDropOff, forKey: StopTime.CodingKeys.continuousDropOff)
-        try container.encodeIfPresent(self.distanceTraveledForShape, forKey: StopTime.CodingKeys.distanceTraveledForShape)
-        try container.encodeIfPresent(self.timePointType, forKey: StopTime.CodingKeys.timePointType)
-        try container.encodeIfPresent(self.nonstandard, forKey: StopTime.CodingKeys.nonstandard)
         try container.encodeIfPresent(self.startDate, forKey: StopTime.CodingKeys.startDate)
         try container.encodeIfPresent(self.endDate, forKey: StopTime.CodingKeys.endDate)
     }
@@ -212,15 +166,9 @@ public struct StopTime: Hashable, Identifiable, Codable {
         self.arrival = try container.decodeIfPresent(DateComponents.self, forKey: StopTime.CodingKeys.arrival)
         self.departure = try container.decodeIfPresent(DateComponents.self, forKey: StopTime.CodingKeys.departure)
         self.stopID = try container.decode(TransitID.self, forKey: StopTime.CodingKeys.stopID)
-        self.stopSequenceNumber = try container.decode(UInt.self, forKey: StopTime.CodingKeys.stopSequenceNumber)
         self.stopHeadingSign = try container.decodeIfPresent(String.self, forKey: StopTime.CodingKeys.stopHeadingSign)
         self.pickupType = try container.decodeIfPresent(Int.self, forKey: StopTime.CodingKeys.pickupType)
         self.dropOffType = try container.decodeIfPresent(Int.self, forKey: StopTime.CodingKeys.dropOffType)
-        self.continuousPickup = try container.decodeIfPresent(Int.self, forKey: StopTime.CodingKeys.continuousPickup)
-        self.continuousDropOff = try container.decodeIfPresent(Int.self, forKey: StopTime.CodingKeys.continuousDropOff)
-        self.distanceTraveledForShape = try container.decodeIfPresent(Double.self, forKey: StopTime.CodingKeys.distanceTraveledForShape)
-        self.timePointType = try container.decodeIfPresent(Int.self, forKey: StopTime.CodingKeys.timePointType)
-        self.nonstandard = try container.decodeIfPresent(String.self, forKey: StopTime.CodingKeys.nonstandard)
         self.startDate = try container.decodeIfPresent(Date.self, forKey: StopTime.CodingKeys.startDate)
         self.endDate = try container.decodeIfPresent(Date.self, forKey: StopTime.CodingKeys.endDate)
     }

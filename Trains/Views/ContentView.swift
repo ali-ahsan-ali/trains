@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    init() {
+        //Use this if NavigationBarTitle is with displayMode = .inline
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font:UIFont.preferredFont(forTextStyle:.title1)]
+    }
+    
     enum AppState {
         case loading
         case success
@@ -21,7 +27,7 @@ struct ContentView: View {
     func fetchData() {
         Task {
             do  {
-                self.stops = try await GTFSManager().parseStops()
+//                self.stops = try await GTFSManager().parseStops()
 //                await GTFSManager().setUpApp(stops: self.stops!)
                 state = .success
                 
@@ -35,11 +41,20 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                content()
+            }
+            .navigationBarTitle("Trains", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: AddStopView(stops: <#T##Stops#>)) {
+                        Image(systemName: "plus.circle")
+                            .font(.title3)
+                    }
+                }
             }
         }.onAppear {
             fetchData()
-        }.navigationBarTitle("Home")
+        }
+        
     }
     
     @ViewBuilder
@@ -47,19 +62,6 @@ struct ContentView: View {
         if state == .loading{
             Text("Loading")
         }else if let stops{
-            Picker("From", selection: $fromStop) {
-                ForEach(stops.stops, id: \.self) { stop in
-                    Text(stop.name ?? "No Name for Station: \(stop.stopID)")
-                        .tag(stop)
-                }
-            }
-            NavigationLink(destination: StopView(stop: fromStop)) {
-                Text("Go to Detail")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
         }else {
             Text("ERROR")
         }

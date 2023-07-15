@@ -95,12 +95,12 @@ public enum Accessibility: UInt, Hashable, Codable{
 }
 
 /// A representation of a single Stop record.
-public class Stop: Hashable, Identifiable, Codable{
+public class Stop: ObservableObject,  Hashable, Identifiable, Codable{
    
     public let id = UUID()
     public var stopID: TransitID = ""
     public var code: StopCode?
-    public var name: String?
+    @Published public var name: String?
     public var details: String?
     public var latitude: CLLocationDegrees?
     public var longitude: CLLocationDegrees?
@@ -115,6 +115,7 @@ public class Stop: Hashable, Identifiable, Codable{
     public var childStops: [Stop] = []
     public var nonstandard: String? = nil
     public var stopTimes: [StopTime] = []
+    @Published public var selected: Bool = false
     
     public init(
         stopID: TransitID = "Unidentified stop",
@@ -132,7 +133,8 @@ public class Stop: Hashable, Identifiable, Codable{
         levelID: TransitID? = nil,
         childStops: [Stop] = [],
         stopTimes: [StopTime] = [],
-        platformCode: String? = nil
+        platformCode: String? = nil,
+        selected: Bool = false
     ) {
         self.stopID = stopID
         self.code = code
@@ -150,6 +152,7 @@ public class Stop: Hashable, Identifiable, Codable{
         self.childStops = childStops
         self.stopTimes = stopTimes
         self.platformCode = platformCode
+        self.selected = selected
     }
     
     public static let requiredFields: Set =
@@ -312,10 +315,10 @@ extension Stop: CustomStringConvertible {
 // MARK: - Stops
 
 /// A representation of a complete Stops dataset.
-public class Stops: Identifiable, Codable{
+public class Stops: ObservableObject, Identifiable, Codable{
     public let id = UUID()
     public var headerFields = [StopField]()
-    public var stops = [Stop]()
+    @Published public var stops = [Stop]()
     
     subscript(index: Int) -> Stop {
         get {
@@ -331,6 +334,9 @@ public class Stops: Identifiable, Codable{
         for stop in sequence {
             self.stops.append(stop)
         }
+    }
+    
+    init() {
     }
     
     init(from url: URL) throws {
