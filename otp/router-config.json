@@ -1,0 +1,20 @@
+{
+    "updaters": [
+        {
+            "type" : "real-time-alerts",
+            "frequencySec" : 300,
+            "url" : "https://api.transport.nsw.gov.au/v2/gtfs/realtime/sydneytrains",
+            "headers" : {
+              "Authorization": "apikey 7gJ5ClWmlCngb7nmj4jnZRlhXCYjj8nDmeAg",
+              "Accept":" application/x-google-protobuf"
+            }
+        }
+    ],
+    "routingDefaults": {
+        "numItineraries": 4,
+        "itineraryFilters": {
+            "nonTransitGeneralizedCostLimit": "0 + 1.5 x"
+        }
+    }
+    
+}
