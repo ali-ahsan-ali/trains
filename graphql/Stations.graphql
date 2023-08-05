@@ -1,0 +1,8 @@
+query StationList {
+  stations {
+    name
+    lon
+    lat
+  }
+}
+

@@ -6,27 +6,32 @@
 //
 
 import SwiftUI
+import OpenTripPlannerApi
 
 struct ContentView: View {
-    
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont.preferredFont(forTextStyle: .title1)]
     }
-    
+
+    @StateObject var stationViewModel = StationListViewModel()
+    @State private var path = NavigationPath()
+
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             VStack {
-                Text("LOL")
-            }
-            .navigationBarTitle("Home")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: FavouriteDestinationsView()) {
-                        Image(systemName: "plus.circle")
-                            .font(.title3)
-                    }
+                NavigationLink("Add Trip", value: "From Station")
+                .navigationDestination(for: String.self) { _ in
+                    StationSelector(stationViewModel: stationViewModel, path: $path)
                 }
+                List {
+                    ForEach(stationViewModel.tripViewModels, id: \.id) { tripViewModel in
+                        NavigationLink(destination: TripTimeView(trip: tripViewModel)) {
+                            Text("\(tripViewModel.fromStation.name) -> \(tripViewModel.toStation.name)")
+                        }
+                    }
+                }.listStyle(.plain)
             }
+            .navigationBarTitle("Trips")
         }
     }
 }

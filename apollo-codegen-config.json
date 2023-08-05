@@ -1,0 +1,28 @@
+{
+  "schemaNamespace" : "OpenTripPlannerApi",
+  "input" : {
+    "operationSearchPaths" : [
+      "**/graphql/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "**/graphql/*.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "none" : {
+      }
+    },
+    "schemaTypes" : {
+      "path" : "./OpenTripPlannerApi",
+      "moduleType" : {
+        "swiftPackageManager" : {
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+      }
+    }
+  }
+}

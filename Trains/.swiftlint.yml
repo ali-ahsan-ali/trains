@@ -246,10 +246,6 @@ opt_in_rules: # some rules are only opt-in
   # https://github.com/realm/SwiftLint/blob/master/Rules.md#compiler-protocol-init
   - compiler_protocol_init
 
-  # Rationale: Encourages usage of assertion failures and thinking about what you are returning
-  # https://github.com/realm/SwiftLint/blob/master/Rules.md#conditional-returns-on-newline
-  - conditional_returns_on_newline
-
   # Rationale: A more clear and consise way to check if something exists
   # https://github.com/realm/SwiftLint/blob/master/Rules.md#contains_over_filter_count
   - contains_over_filter_count
@@ -423,10 +419,6 @@ opt_in_rules: # some rules are only opt-in
   - notification_center_detachment
 
   # Rationale: Provides consistency in coding style
-  # https://github.com/realm/SwiftLint/blob/master/Rules.md#opening-brace-spacing
-  - opening_brace
-
-  # Rationale: Provides consistency in coding style
   # https://github.com/realm/SwiftLint/blob/master/Rules.md#operator-usage-whitespace
   - operator_usage_whitespace
 
@@ -529,10 +521,6 @@ opt_in_rules: # some rules are only opt-in
   # Rationale: Provides consistency in coding style and follows modern practices of the language
   # https://github.com/realm/SwiftLint/blob/master/Rules.md#trailing-comma
   - trailing_comma
-
-  # Rationale: Provides consistency in coding style
-  # https://github.com/realm/SwiftLint/blob/master/Rules.md#trailing-newline
-  - trailing_newline
 
   # Rationale: Provides consistency in coding style and follows modern practices of the language
   # https://github.com/realm/SwiftLint/blob/master/Rules.md#trailing-semicolon
@@ -641,22 +629,7 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
 attributes:
   always_on_same_line: ["@IBAction", "@IBSegueAction", "@NSManaged", "@discardableResult", "@escaping", "@objc"]
 
-type_contents_order:
-  order:
-    - case
-    - associated_type
-    - type_alias
-    - subtype
-    - [type_property, instance_property, ib_outlet, ib_inspectable]
-    - [initializer, deinitializer, type_method, view_life_cycle_method, subscript, other_method, ib_action]
-
 custom_rules:
-  force_https:
-    name: "Force HTTPS over HTTP"
-    regex: "((?i)http(?!s))"
-    match_kinds: string
-    message: "HTTPS should be favored over HTTP"
-    severity: warning
   custom_todo:
     name: "TODO Violation"
     regex: "(TODO).(?!.*(https&)).(?!.*issue)"

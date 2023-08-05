@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41150EEB2A6E83B300E225FB /* SearchCompleterLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EEA2A6E83B300E225FB /* SearchCompleterLabelView.swift */; };
-		41150EED2A6E83ED00E225FB /* SearchCompleterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EEC2A6E83ED00E225FB /* SearchCompleterView.swift */; };
 		413DC90B2A35C5F700BB9334 /* TrainsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC90A2A35C5F700BB9334 /* TrainsApp.swift */; };
 		413DC90D2A35C5F700BB9334 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC90C2A35C5F700BB9334 /* ContentView.swift */; };
 		413DC90F2A35C5FA00BB9334 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 413DC90E2A35C5FA00BB9334 /* Assets.xcassets */; };
@@ -16,8 +14,20 @@
 		413DC91C2A35C5FA00BB9334 /* TrainsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC91B2A35C5FA00BB9334 /* TrainsTests.swift */; };
 		413DC9262A35C5FA00BB9334 /* TrainsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC9252A35C5FA00BB9334 /* TrainsUITests.swift */; };
 		413DC9282A35C5FA00BB9334 /* TrainsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC9272A35C5FA00BB9334 /* TrainsUITestsLaunchTests.swift */; };
-		413DC93F2A35C6A900BB9334 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC9352A35C6A900BB9334 /* LocationManager.swift */; };
-		41F772272A51381B009D90A3 /* FavouriteDestinationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F772262A51381B009D90A3 /* FavouriteDestinationsView.swift */; };
+		413DC93F2A35C6A900BB9334 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC9352A35C6A900BB9334 /* Network.swift */; };
+		41F772272A51381B009D90A3 /* StationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F772262A51381B009D90A3 /* StationSelector.swift */; };
+		C80319DE2A714A8D00D842E8 /* OpenTripPlannerApi in Frameworks */ = {isa = PBXBuildFile; productRef = C80319DD2A714A8D00D842E8 /* OpenTripPlannerApi */; };
+		C821E2962A7390CB0072AC77 /* StationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C821E2952A7390CB0072AC77 /* StationsViewModel.swift */; };
+		C821E29B2A739CE70072AC77 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C821E29A2A739CE70072AC77 /* .swiftlint.yml */; };
+		C821E2A22A7661540072AC77 /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C821E2A12A7661540072AC77 /* TripViewModel.swift */; };
+		C8D670942A7E08C00062BCBC /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = C8D670932A7E08C00062BCBC /* Apollo */; };
+		C8D670962A7E08C00062BCBC /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = C8D670952A7E08C00062BCBC /* ApolloSQLite */; };
+		C8D6709C2A7E0AA80062BCBC /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = C8D6709B2A7E0AA80062BCBC /* ApolloWebSocket */; };
+		C8D6709E2A7E0BDA0062BCBC /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6709D2A7E0BDA0062BCBC /* Logger.swift */; };
+		C8D670A02A7E14850062BCBC /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6709F2A7E14850062BCBC /* CacheManager.swift */; };
+		C8D670A22A7E18A30062BCBC /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D670A12A7E18A30062BCBC /* Station.swift */; };
+		C8D670A42A7E26A90062BCBC /* TripTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D670A32A7E26A90062BCBC /* TripTimeView.swift */; };
+		C8D670A62A7E28150062BCBC /* TripTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D670A52A7E28150062BCBC /* TripTimeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +48,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		41150EEA2A6E83B300E225FB /* SearchCompleterLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCompleterLabelView.swift; sourceTree = "<group>"; };
-		41150EEC2A6E83ED00E225FB /* SearchCompleterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCompleterView.swift; sourceTree = "<group>"; };
 		413DC9072A35C5F700BB9334 /* Trains.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trains.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		413DC90A2A35C5F700BB9334 /* TrainsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainsApp.swift; sourceTree = "<group>"; };
 		413DC90C2A35C5F700BB9334 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -50,8 +58,19 @@
 		413DC9212A35C5FA00BB9334 /* TrainsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		413DC9252A35C5FA00BB9334 /* TrainsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainsUITests.swift; sourceTree = "<group>"; };
 		413DC9272A35C5FA00BB9334 /* TrainsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainsUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		413DC9352A35C6A900BB9334 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		41F772262A51381B009D90A3 /* FavouriteDestinationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteDestinationsView.swift; sourceTree = "<group>"; };
+		413DC9352A35C6A900BB9334 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		41F772262A51381B009D90A3 /* StationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelector.swift; sourceTree = "<group>"; };
+		C8048AC72A7149430064C89C /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		C8048AC82A7149430064C89C /* Stations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Stations.graphql; sourceTree = "<group>"; };
+		C8048ACE2A7149EA0064C89C /* OpenTripPlannerApi */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = OpenTripPlannerApi; sourceTree = "<group>"; };
+		C821E2952A7390CB0072AC77 /* StationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsViewModel.swift; sourceTree = "<group>"; };
+		C821E29A2A739CE70072AC77 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = .swiftlint.yml; path = Trains/.swiftlint.yml; sourceTree = "<group>"; };
+		C821E2A12A7661540072AC77 /* TripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModel.swift; sourceTree = "<group>"; };
+		C8D6709D2A7E0BDA0062BCBC /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		C8D6709F2A7E14850062BCBC /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		C8D670A12A7E18A30062BCBC /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		C8D670A32A7E26A90062BCBC /* TripTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTimeView.swift; sourceTree = "<group>"; };
+		C8D670A52A7E28150062BCBC /* TripTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTimeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +78,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C80319DE2A714A8D00D842E8 /* OpenTripPlannerApi in Frameworks */,
+				C8D6709C2A7E0AA80062BCBC /* ApolloWebSocket in Frameworks */,
+				C8D670942A7E08C00062BCBC /* Apollo in Frameworks */,
+				C8D670962A7E08C00062BCBC /* ApolloSQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,28 +105,24 @@
 		41150EE62A6E720000E225FB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				41F772262A51381B009D90A3 /* FavouriteDestinationsView.swift */,
+				41F772262A51381B009D90A3 /* StationSelector.swift */,
 				413DC90C2A35C5F700BB9334 /* ContentView.swift */,
-				41150EEA2A6E83B300E225FB /* SearchCompleterLabelView.swift */,
-				41150EEC2A6E83ED00E225FB /* SearchCompleterView.swift */,
+				C8D670A32A7E26A90062BCBC /* TripTimeView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		41150EE72A6E721300E225FB /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		413DC8FE2A35C5F700BB9334 = {
 			isa = PBXGroup;
 			children = (
+				C821E29A2A739CE70072AC77 /* .swiftlint.yml */,
+				C8048ACD2A7149EA0064C89C /* Packages */,
+				C8048AC62A7149430064C89C /* graphql */,
 				413DC9092A35C5F700BB9334 /* Trains */,
 				413DC91A2A35C5FA00BB9334 /* TrainsTests */,
 				413DC9242A35C5FA00BB9334 /* TrainsUITests */,
 				413DC9082A35C5F700BB9334 /* Products */,
+				C80319DC2A714A8D00D842E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,8 +139,9 @@
 		413DC9092A35C5F700BB9334 /* Trains */ = {
 			isa = PBXGroup;
 			children = (
+				C821E29E2A7636C40072AC77 /* Model */,
 				413DC90A2A35C5F700BB9334 /* TrainsApp.swift */,
-				41150EE72A6E721300E225FB /* Models */,
+				C821E2972A73929E0072AC77 /* ViewModel */,
 				41150EE62A6E720000E225FB /* Views */,
 				413DC9342A35C6A800BB9334 /* Managers */,
 				413DC90E2A35C5FA00BB9334 /* Assets.xcassets */,
@@ -158,9 +178,53 @@
 		413DC9342A35C6A800BB9334 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				413DC9352A35C6A900BB9334 /* LocationManager.swift */,
+				C8D6709F2A7E14850062BCBC /* CacheManager.swift */,
+				413DC9352A35C6A900BB9334 /* Network.swift */,
+				C8D6709D2A7E0BDA0062BCBC /* Logger.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		C80319DC2A714A8D00D842E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C8048AC62A7149430064C89C /* graphql */ = {
+			isa = PBXGroup;
+			children = (
+				C8048AC72A7149430064C89C /* schema.graphqls */,
+				C8048AC82A7149430064C89C /* Stations.graphql */,
+			);
+			path = graphql;
+			sourceTree = "<group>";
+		};
+		C8048ACD2A7149EA0064C89C /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				C8048ACE2A7149EA0064C89C /* OpenTripPlannerApi */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		C821E2972A73929E0072AC77 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C821E2952A7390CB0072AC77 /* StationsViewModel.swift */,
+				C821E2A12A7661540072AC77 /* TripViewModel.swift */,
+				C8D670A52A7E28150062BCBC /* TripTimeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C821E29E2A7636C40072AC77 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C8D670A12A7E18A30062BCBC /* Station.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,7 +234,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 413DC92B2A35C5FA00BB9334 /* Build configuration list for PBXNativeTarget "Trains" */;
 			buildPhases = (
-				41150EE32A6E717500E225FB /* SwiftLint */,
+				C8048A7A2A7133F40064C89C /* GraphQL */,
 				413DC9032A35C5F700BB9334 /* Sources */,
 				413DC9042A35C5F700BB9334 /* Frameworks */,
 				413DC9052A35C5F700BB9334 /* Resources */,
@@ -178,8 +242,15 @@
 			buildRules = (
 			);
 			dependencies = (
+				C8048A822A7139E50064C89C /* PBXTargetDependency */,
 			);
 			name = Trains;
+			packageProductDependencies = (
+				C80319DD2A714A8D00D842E8 /* OpenTripPlannerApi */,
+				C8D670932A7E08C00062BCBC /* Apollo */,
+				C8D670952A7E08C00062BCBC /* ApolloSQLite */,
+				C8D6709B2A7E0AA80062BCBC /* ApolloWebSocket */,
+			);
 			productName = Trains;
 			productReference = 413DC9072A35C5F700BB9334 /* Trains.app */;
 			productType = "com.apple.product-type.application";
@@ -252,6 +323,10 @@
 				Base,
 			);
 			mainGroup = 413DC8FE2A35C5F700BB9334;
+			packageReferences = (
+				C8048A7B2A7137890064C89C /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */,
+			);
 			productRefGroup = 413DC9082A35C5F700BB9334 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -268,6 +343,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C821E29B2A739CE70072AC77 /* .swiftlint.yml in Resources */,
 				413DC9122A35C5FA00BB9334 /* Preview Assets.xcassets in Resources */,
 				413DC90F2A35C5FA00BB9334 /* Assets.xcassets in Resources */,
 			);
@@ -290,23 +366,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		41150EE32A6E717500E225FB /* SwiftLint */ = {
+		C8048A7A2A7133F40064C89C /* GraphQL */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
 			);
-			name = SwiftLint;
+			name = GraphQL;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"graphql/schema.graphqls\" OpenTripPlannerApi.swift\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -315,12 +391,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				413DC93F2A35C6A900BB9334 /* LocationManager.swift in Sources */,
-				41F772272A51381B009D90A3 /* FavouriteDestinationsView.swift in Sources */,
-				41150EED2A6E83ED00E225FB /* SearchCompleterView.swift in Sources */,
-				41150EEB2A6E83B300E225FB /* SearchCompleterLabelView.swift in Sources */,
+				413DC93F2A35C6A900BB9334 /* Network.swift in Sources */,
+				C8D670A22A7E18A30062BCBC /* Station.swift in Sources */,
+				C821E2A22A7661540072AC77 /* TripViewModel.swift in Sources */,
+				41F772272A51381B009D90A3 /* StationSelector.swift in Sources */,
 				413DC90D2A35C5F700BB9334 /* ContentView.swift in Sources */,
+				C8D670A02A7E14850062BCBC /* CacheManager.swift in Sources */,
+				C821E2962A7390CB0072AC77 /* StationsViewModel.swift in Sources */,
 				413DC90B2A35C5F700BB9334 /* TrainsApp.swift in Sources */,
+				C8D670A62A7E28150062BCBC /* TripTimeViewModel.swift in Sources */,
+				C8D670A42A7E26A90062BCBC /* TripTimeView.swift in Sources */,
+				C8D6709E2A7E0BDA0062BCBC /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +434,10 @@
 			isa = PBXTargetDependency;
 			target = 413DC9062A35C5F700BB9334 /* Trains */;
 			targetProxy = 413DC9222A35C5FA00BB9334 /* PBXContainerItemProxy */;
+		};
+		C8048A822A7139E50064C89C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = C8048A812A7139E50064C89C /* SwiftLintPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -407,7 +492,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -461,7 +546,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -479,7 +564,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Trains/Preview Content\"";
-				DEVELOPMENT_TEAM = MD5CW7R5NB;
+				DEVELOPMENT_TEAM = L9DQK6FQ3F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -487,7 +572,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -509,7 +594,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Trains/Preview Content\"";
-				DEVELOPMENT_TEAM = MD5CW7R5NB;
+				DEVELOPMENT_TEAM = L9DQK6FQ3F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -517,7 +602,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -647,6 +732,52 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C8048A7B2A7137890064C89C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.52.4;
+			};
+		};
+		C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C80319DD2A714A8D00D842E8 /* OpenTripPlannerApi */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OpenTripPlannerApi;
+		};
+		C8048A812A7139E50064C89C /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8048A7B2A7137890064C89C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
+		};
+		C8D670932A7E08C00062BCBC /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+		C8D670952A7E08C00062BCBC /* ApolloSQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloSQLite;
+		};
+		C8D6709B2A7E0AA80062BCBC /* ApolloWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 413DC8FF2A35C5F700BB9334 /* Project object */;
 }
