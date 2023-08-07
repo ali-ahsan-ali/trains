@@ -1,8 +1,14 @@
-query StationList {
-  stations {
+query StationList{
+  stations{
+    id
     name
     lon
     lat
+    stops {
+      id
+      name
+    }
   }
 }
+
 

@@ -4,7 +4,6 @@ import OpenTripPlannerApi
 import Apollo
 import OSLog
 
-// swiftlint:disable:force_unwrapping
 class Network {
     static let shared = Network()
 
@@ -15,7 +14,7 @@ class Network {
             .documentDirectory,
             .userDomainMask,
             true
-        ).first!
+        ).first! // swiftlint:disable:this force_unwrapping
 
         let documentsURL = URL(fileURLWithPath: documentsPath)
         let sqliteFileURL = documentsURL.appendingPathComponent("test_apollo_db.sqlite")
@@ -23,7 +22,7 @@ class Network {
         do {
             let sqliteCache = try SQLiteNormalizedCache(fileURL: sqliteFileURL)
             let store = ApolloStore(cache: sqliteCache)
-            let networkTransport = RequestChainNetworkTransport(interceptorProvider: DefaultInterceptorProvider(store: store), endpointURL: URL(string: "http://localhost:8080/otp/routers/default/index/graphql")!)
+            let networkTransport = RequestChainNetworkTransport(interceptorProvider: DefaultInterceptorProvider(store: store), endpointURL: URL(string: "http://localhost:8080/otp/routers/default/index/graphql")!) // swiftlint:disable:this force_unwrapping
             self.apolloClient = ApolloClient(networkTransport: networkTransport, store: store)
         } catch {
             Logger.network.error("ERROR")

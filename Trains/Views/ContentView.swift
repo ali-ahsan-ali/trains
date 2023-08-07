@@ -9,7 +9,7 @@ import SwiftUI
 import OpenTripPlannerApi
 
 struct ContentView: View {
-    init() {
+    init() { // swiftlint:disable:this type_contents_order
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont.preferredFont(forTextStyle: .title1)]
     }
 
@@ -25,7 +25,7 @@ struct ContentView: View {
                 }
                 List {
                     ForEach(stationViewModel.tripViewModels, id: \.id) { tripViewModel in
-                        NavigationLink(destination: TripTimeView(trip: tripViewModel)) {
+                        NavigationLink(destination: TripTimeView(tripTimeViewModel: TripTimeViewModel(tripViewModel: tripViewModel))) {
                             Text("\(tripViewModel.fromStation.name) -> \(tripViewModel.toStation.name)")
                         }
                     }

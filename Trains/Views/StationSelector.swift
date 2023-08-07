@@ -52,12 +52,12 @@ struct StationSelector: View {
             List {
                 ForEach(filteredStations.keys.sorted(), id: \.self) { key in
                     Section(header: Text("\(key)")) {
-                        ForEach(filteredStations[key] ?? []) { station in
+                        ForEach(filteredStations[key] ?? [], id: \.id) { station in
                             if let fromStation = self.fromStation {
                                 Button(
                                     "\(station.name)",
                                     action: {
-                                        if !self.stationViewModel.tripViewModels.contains(where: { $0.fromStation.name == fromStation.name && $0.toStation.name == station.name }) {
+                                        if !self.stationViewModel.tripViewModels.contains(where: { $0.fromStation.id == fromStation.id && $0.toStation.id == station.id }) {
                                             stationViewModel.addTrip(fromStop: fromStation, toStop: station)
                                             stationViewModel.saveTrips()
                                         }

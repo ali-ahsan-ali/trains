@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41150EEF2A7E6F3600E225FB /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EEE2A7E6F3500E225FB /* Stop.swift */; };
+		41150EF22A7E7C2400E225FB /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EF12A7E7C2400E225FB /* Plan.swift */; };
+		41150EF42A7E7C6300E225FB /* Leg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EF32A7E7C6200E225FB /* Leg.swift */; };
+		41150EF62A7FF19C00E225FB /* StopTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EF52A7FF19C00E225FB /* StopTimes.swift */; };
+		41150EF82A80D6F000E225FB /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EF72A80D6F000E225FB /* TripView.swift */; };
 		413DC90B2A35C5F700BB9334 /* TrainsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC90A2A35C5F700BB9334 /* TrainsApp.swift */; };
 		413DC90D2A35C5F700BB9334 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC90C2A35C5F700BB9334 /* ContentView.swift */; };
 		413DC90F2A35C5FA00BB9334 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 413DC90E2A35C5FA00BB9334 /* Assets.xcassets */; };
@@ -48,6 +53,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41150EEE2A7E6F3500E225FB /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
+		41150EF02A7E78BF00E225FB /* TripPlanner.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = TripPlanner.graphql; sourceTree = "<group>"; };
+		41150EF12A7E7C2400E225FB /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
+		41150EF32A7E7C6200E225FB /* Leg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leg.swift; sourceTree = "<group>"; };
+		41150EF52A7FF19C00E225FB /* StopTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopTimes.swift; sourceTree = "<group>"; };
+		41150EF72A80D6F000E225FB /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		413DC9072A35C5F700BB9334 /* Trains.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trains.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		413DC90A2A35C5F700BB9334 /* TrainsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainsApp.swift; sourceTree = "<group>"; };
 		413DC90C2A35C5F700BB9334 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -108,6 +119,7 @@
 				41F772262A51381B009D90A3 /* StationSelector.swift */,
 				413DC90C2A35C5F700BB9334 /* ContentView.swift */,
 				C8D670A32A7E26A90062BCBC /* TripTimeView.swift */,
+				41150EF72A80D6F000E225FB /* TripView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,6 +209,7 @@
 			children = (
 				C8048AC72A7149430064C89C /* schema.graphqls */,
 				C8048AC82A7149430064C89C /* Stations.graphql */,
+				41150EF02A7E78BF00E225FB /* TripPlanner.graphql */,
 			);
 			path = graphql;
 			sourceTree = "<group>";
@@ -223,6 +236,10 @@
 			isa = PBXGroup;
 			children = (
 				C8D670A12A7E18A30062BCBC /* Station.swift */,
+				41150EEE2A7E6F3500E225FB /* Stop.swift */,
+				41150EF12A7E7C2400E225FB /* Plan.swift */,
+				41150EF32A7E7C6200E225FB /* Leg.swift */,
+				41150EF52A7FF19C00E225FB /* StopTimes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -394,14 +411,19 @@
 				413DC93F2A35C6A900BB9334 /* Network.swift in Sources */,
 				C8D670A22A7E18A30062BCBC /* Station.swift in Sources */,
 				C821E2A22A7661540072AC77 /* TripViewModel.swift in Sources */,
+				41150EF82A80D6F000E225FB /* TripView.swift in Sources */,
 				41F772272A51381B009D90A3 /* StationSelector.swift in Sources */,
+				41150EF22A7E7C2400E225FB /* Plan.swift in Sources */,
 				413DC90D2A35C5F700BB9334 /* ContentView.swift in Sources */,
 				C8D670A02A7E14850062BCBC /* CacheManager.swift in Sources */,
+				41150EF62A7FF19C00E225FB /* StopTimes.swift in Sources */,
 				C821E2962A7390CB0072AC77 /* StationsViewModel.swift in Sources */,
 				413DC90B2A35C5F700BB9334 /* TrainsApp.swift in Sources */,
 				C8D670A62A7E28150062BCBC /* TripTimeViewModel.swift in Sources */,
+				41150EF42A7E7C6300E225FB /* Leg.swift in Sources */,
 				C8D670A42A7E26A90062BCBC /* TripTimeView.swift in Sources */,
 				C8D6709E2A7E0BDA0062BCBC /* Logger.swift in Sources */,
+				41150EEF2A7E6F3600E225FB /* Stop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

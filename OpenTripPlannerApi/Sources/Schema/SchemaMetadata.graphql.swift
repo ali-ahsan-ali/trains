@@ -23,7 +23,11 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
   public static func objectType(forTypename typename: String) -> Object? {
     switch typename {
     case "QueryType": return OpenTripPlannerApi.Objects.QueryType
-    case "Stop": return OpenTripPlannerApi.Objects.Stop
+    case "Plan": return OpenTripPlannerApi.Objects.Plan
+    case "Place": return OpenTripPlannerApi.Objects.Place
+    case "Itinerary": return OpenTripPlannerApi.Objects.Itinerary
+    case "Leg": return OpenTripPlannerApi.Objects.Leg
+    case "Trip": return OpenTripPlannerApi.Objects.Trip
     case "Agency": return OpenTripPlannerApi.Objects.Agency
     case "Alert": return OpenTripPlannerApi.Objects.Alert
     case "BikePark": return OpenTripPlannerApi.Objects.BikePark
@@ -33,13 +37,16 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "RentalVehicle": return OpenTripPlannerApi.Objects.RentalVehicle
     case "CarPark": return OpenTripPlannerApi.Objects.CarPark
     case "DepartureRow": return OpenTripPlannerApi.Objects.DepartureRow
+    case "Stop": return OpenTripPlannerApi.Objects.Stop
     case "Cluster": return OpenTripPlannerApi.Objects.Cluster
     case "Pattern": return OpenTripPlannerApi.Objects.Pattern
     case "placeAtDistance": return OpenTripPlannerApi.Objects.PlaceAtDistance
     case "Route": return OpenTripPlannerApi.Objects.Route
     case "stopAtDistance": return OpenTripPlannerApi.Objects.StopAtDistance
     case "TicketType": return OpenTripPlannerApi.Objects.TicketType
-    case "Trip": return OpenTripPlannerApi.Objects.Trip
+    case "Stoptime": return OpenTripPlannerApi.Objects.Stoptime
+    case "RoutingError": return OpenTripPlannerApi.Objects.RoutingError
+    case "debugOutput": return OpenTripPlannerApi.Objects.DebugOutput
     default: return nil
     }
   }

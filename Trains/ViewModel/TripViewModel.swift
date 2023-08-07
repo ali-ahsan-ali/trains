@@ -9,7 +9,7 @@ import Foundation
 import OpenTripPlannerApi
 
 struct TripViewModel: Codable {
-    let id = UUID()
+    var id = UUID()
     let fromStation: Station
     let toStation: Station
 }

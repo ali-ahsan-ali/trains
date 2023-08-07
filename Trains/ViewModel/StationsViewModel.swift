@@ -30,18 +30,28 @@ class StationListViewModel: ObservableObject {
         tripViewModels = cache.getTrips()
     }
 
-    func addTrip(fromStop: StationListQuery.Data.Station, toStop: StationListQuery.Data.Station){
+    func addTrip(fromStop: StationListQuery.Data.Station, toStop: StationListQuery.Data.Station) {
         tripViewModels.append(
             TripViewModel(
                 fromStation: Station(
+                    id: fromStop.id,
                     name: fromStop.name,
                     lon: fromStop.lon,
-                    lat: fromStop.lat
+                    lat: fromStop.lat,
+                    platforms: fromStop.stops?.compactMap {
+                        guard let stop = $0 else { return nil }
+                        return Stop(id: stop.id, name: stop.name)
+                    } ?? []
                 ),
                 toStation: Station(
+                    id: toStop.id,
                     name: toStop.name,
                     lon: toStop.lon,
-                    lat: toStop.lat
+                    lat: toStop.lat,
+                    platforms: toStop.stops?.compactMap {
+                        guard let stop = $0 else { return nil }
+                        return Stop(id: stop.id, name: stop.name)
+                    } ?? []
                 )
             )
         )
