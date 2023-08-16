@@ -179,10 +179,6 @@ disabled_rules: # rule identifiers to exclude from running
   # Rationale: Custom rule overrides to allow todos when issue links are provided.
   # https://github.com/realm/SwiftLint/blob/master/Rules.md#todo
   - todo
-  
-  # Rationale: Allows for more readable code when defining new properties or functions on types.
-  # https://github.com/realm/SwiftLint/blob/master/Rules.md#vertical-whitespace-after-opening-braces
-  - vertical_whitespace_opening_braces
 
   # Rationale: Unnecessary whitespace.
   # https://github.com/realm/SwiftLint/blob/master/Rules.md#vertical-whitespace-between-cases

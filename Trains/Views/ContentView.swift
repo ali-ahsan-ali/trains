@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OpenTripPlannerApi
 
 struct ContentView: View {
     init() { // swiftlint:disable:this type_contents_order
@@ -19,17 +18,21 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
-                NavigationLink("Add Trip", value: "From Station")
-                .navigationDestination(for: String.self) { _ in
-                    StationSelector(stationViewModel: stationViewModel, path: $path)
-                }
-                List {
-                    ForEach(stationViewModel.tripViewModels, id: \.id) { tripViewModel in
-                        NavigationLink(destination: TripTimeView(tripTimeViewModel: TripTimeViewModel(tripViewModel: tripViewModel))) {
-                            Text("\(tripViewModel.fromStation.name) -> \(tripViewModel.toStation.name)")
+                List(stationViewModel.savedDestinationStations, id: \.destination.stopId) { destinationViewModel in
+                    Text("\(destinationViewModel.destination.stopName)")
+                        .font(.title2)
+                        .onAppear {
+                            destinationViewModel.retreiveTripDetails()
                         }
+                }
+                .listStyle(.plain)
+                .headerProminence(.increased)
+                .toolbar {
+                    NavigationLink("Add Trip", value: "From Station")
+                    .navigationDestination(for: String.self) { _ in
+                        DestinationSelector(stationViewModel: stationViewModel, path: $path)
                     }
-                }.listStyle(.plain)
+                }
             }
             .navigationBarTitle("Trips")
         }

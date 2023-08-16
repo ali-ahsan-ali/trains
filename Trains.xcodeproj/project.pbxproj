@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41150EEF2A7E6F3600E225FB /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EEE2A7E6F3500E225FB /* Stop.swift */; };
-		41150EF22A7E7C2400E225FB /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EF12A7E7C2400E225FB /* Plan.swift */; };
-		41150EF42A7E7C6300E225FB /* Leg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EF32A7E7C6200E225FB /* Leg.swift */; };
-		41150EF62A7FF19C00E225FB /* StopTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EF52A7FF19C00E225FB /* StopTimes.swift */; };
-		41150EF82A80D6F000E225FB /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41150EF72A80D6F000E225FB /* TripView.swift */; };
 		413DC90B2A35C5F700BB9334 /* TrainsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC90A2A35C5F700BB9334 /* TrainsApp.swift */; };
 		413DC90D2A35C5F700BB9334 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC90C2A35C5F700BB9334 /* ContentView.swift */; };
 		413DC90F2A35C5FA00BB9334 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 413DC90E2A35C5FA00BB9334 /* Assets.xcassets */; };
@@ -19,20 +14,25 @@
 		413DC91C2A35C5FA00BB9334 /* TrainsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC91B2A35C5FA00BB9334 /* TrainsTests.swift */; };
 		413DC9262A35C5FA00BB9334 /* TrainsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC9252A35C5FA00BB9334 /* TrainsUITests.swift */; };
 		413DC9282A35C5FA00BB9334 /* TrainsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC9272A35C5FA00BB9334 /* TrainsUITestsLaunchTests.swift */; };
-		413DC93F2A35C6A900BB9334 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC9352A35C6A900BB9334 /* Network.swift */; };
-		41F772272A51381B009D90A3 /* StationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F772262A51381B009D90A3 /* StationSelector.swift */; };
-		C80319DE2A714A8D00D842E8 /* OpenTripPlannerApi in Frameworks */ = {isa = PBXBuildFile; productRef = C80319DD2A714A8D00D842E8 /* OpenTripPlannerApi */; };
+		41F772272A51381B009D90A3 /* DestinationSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F772262A51381B009D90A3 /* DestinationSelector.swift */; };
 		C821E2962A7390CB0072AC77 /* StationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C821E2952A7390CB0072AC77 /* StationsViewModel.swift */; };
 		C821E29B2A739CE70072AC77 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C821E29A2A739CE70072AC77 /* .swiftlint.yml */; };
-		C821E2A22A7661540072AC77 /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C821E2A12A7661540072AC77 /* TripViewModel.swift */; };
-		C8D670942A7E08C00062BCBC /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = C8D670932A7E08C00062BCBC /* Apollo */; };
-		C8D670962A7E08C00062BCBC /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = C8D670952A7E08C00062BCBC /* ApolloSQLite */; };
-		C8D6709C2A7E0AA80062BCBC /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = C8D6709B2A7E0AA80062BCBC /* ApolloWebSocket */; };
+		C8310D682A84E9E4000803D8 /* stops.txt in Resources */ = {isa = PBXBuildFile; fileRef = C8310D672A84E9E4000803D8 /* stops.txt */; };
+		C8310D802A84FB03000803D8 /* GTFS in Frameworks */ = {isa = PBXBuildFile; productRef = C8310D7F2A84FB03000803D8 /* GTFS */; };
+		C89AD2DB2A8B0A3A003808E9 /* TripTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89AD2DA2A8B0A3A003808E9 /* TripTimeViewModel.swift */; };
+		C89AD2DD2A8B0AF7003808E9 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89AD2DC2A8B0AF7003808E9 /* Errors.swift */; };
+		C89AD2DF2A8B0B09003808E9 /* APIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89AD2DE2A8B0B09003808E9 /* APIState.swift */; };
+		C89AD2E12A8B0ECF003808E9 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89AD2E02A8B0ECF003808E9 /* DateManager.swift */; };
+		C89AD2E32A8B0FCE003808E9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89AD2E22A8B0FCE003808E9 /* LocationManager.swift */; };
+		C89AD2E62A8B2A80003808E9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C89AD2E52A8B2A80003808E9 /* Alamofire */; };
+		C89AD2E82A8B2A8D003808E9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89AD2E72A8B2A8D003808E9 /* NetworkManager.swift */; };
+		C89AD2EB2A8B360C003808E9 /* TripPlannerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89AD2EA2A8B360C003808E9 /* TripPlannerResponse.swift */; };
 		C8D6709E2A7E0BDA0062BCBC /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6709D2A7E0BDA0062BCBC /* Logger.swift */; };
 		C8D670A02A7E14850062BCBC /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6709F2A7E14850062BCBC /* CacheManager.swift */; };
-		C8D670A22A7E18A30062BCBC /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D670A12A7E18A30062BCBC /* Station.swift */; };
-		C8D670A42A7E26A90062BCBC /* TripTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D670A32A7E26A90062BCBC /* TripTimeView.swift */; };
-		C8D670A62A7E28150062BCBC /* TripTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D670A52A7E28150062BCBC /* TripTimeViewModel.swift */; };
+		C8D670A62A7E28150062BCBC /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D670A52A7E28150062BCBC /* TripViewModel.swift */; };
+		C8E56D832A863C4A0064BE01 /* stops.json in Resources */ = {isa = PBXBuildFile; fileRef = C8E56D822A863C4A0064BE01 /* stops.json */; };
+		C8E56D872A863FC90064BE01 /* TripTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E56D862A863FC90064BE01 /* TripTimeView.swift */; };
+		C8E56D892A8649730064BE01 /* TripPlannerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E56D882A8649730064BE01 /* TripPlannerManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,12 +53,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		41150EEE2A7E6F3500E225FB /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
-		41150EF02A7E78BF00E225FB /* TripPlanner.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = TripPlanner.graphql; sourceTree = "<group>"; };
-		41150EF12A7E7C2400E225FB /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
-		41150EF32A7E7C6200E225FB /* Leg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leg.swift; sourceTree = "<group>"; };
-		41150EF52A7FF19C00E225FB /* StopTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopTimes.swift; sourceTree = "<group>"; };
-		41150EF72A80D6F000E225FB /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		413DC9072A35C5F700BB9334 /* Trains.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trains.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		413DC90A2A35C5F700BB9334 /* TrainsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainsApp.swift; sourceTree = "<group>"; };
 		413DC90C2A35C5F700BB9334 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,19 +63,25 @@
 		413DC9212A35C5FA00BB9334 /* TrainsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		413DC9252A35C5FA00BB9334 /* TrainsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainsUITests.swift; sourceTree = "<group>"; };
 		413DC9272A35C5FA00BB9334 /* TrainsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainsUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		413DC9352A35C6A900BB9334 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		41F772262A51381B009D90A3 /* StationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelector.swift; sourceTree = "<group>"; };
-		C8048AC72A7149430064C89C /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
-		C8048AC82A7149430064C89C /* Stations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Stations.graphql; sourceTree = "<group>"; };
-		C8048ACE2A7149EA0064C89C /* OpenTripPlannerApi */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = OpenTripPlannerApi; sourceTree = "<group>"; };
+		41F772262A51381B009D90A3 /* DestinationSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelector.swift; sourceTree = "<group>"; };
 		C821E2952A7390CB0072AC77 /* StationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsViewModel.swift; sourceTree = "<group>"; };
 		C821E29A2A739CE70072AC77 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = .swiftlint.yml; path = Trains/.swiftlint.yml; sourceTree = "<group>"; };
-		C821E2A12A7661540072AC77 /* TripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModel.swift; sourceTree = "<group>"; };
+		C8310D672A84E9E4000803D8 /* stops.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = stops.txt; path = otp/sydneytrains_GTFS_20230723150100/stops.txt; sourceTree = "<group>"; };
+		C8310D812A84FB09000803D8 /* GTFS */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GTFS; path = ../GTFS; sourceTree = "<group>"; };
+		C89AD2DA2A8B0A3A003808E9 /* TripTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTimeViewModel.swift; sourceTree = "<group>"; };
+		C89AD2DC2A8B0AF7003808E9 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		C89AD2DE2A8B0B09003808E9 /* APIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIState.swift; sourceTree = "<group>"; };
+		C89AD2E02A8B0ECF003808E9 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		C89AD2E22A8B0FCE003808E9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C89AD2E72A8B2A8D003808E9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C89AD2E92A8B3313003808E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C89AD2EA2A8B360C003808E9 /* TripPlannerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPlannerResponse.swift; sourceTree = "<group>"; };
 		C8D6709D2A7E0BDA0062BCBC /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		C8D6709F2A7E14850062BCBC /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
-		C8D670A12A7E18A30062BCBC /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
-		C8D670A32A7E26A90062BCBC /* TripTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTimeView.swift; sourceTree = "<group>"; };
-		C8D670A52A7E28150062BCBC /* TripTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTimeViewModel.swift; sourceTree = "<group>"; };
+		C8D670A52A7E28150062BCBC /* TripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModel.swift; sourceTree = "<group>"; };
+		C8E56D822A863C4A0064BE01 /* stops.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stops.json; sourceTree = "<group>"; };
+		C8E56D862A863FC90064BE01 /* TripTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTimeView.swift; sourceTree = "<group>"; };
+		C8E56D882A8649730064BE01 /* TripPlannerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPlannerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +89,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C80319DE2A714A8D00D842E8 /* OpenTripPlannerApi in Frameworks */,
-				C8D6709C2A7E0AA80062BCBC /* ApolloWebSocket in Frameworks */,
-				C8D670942A7E08C00062BCBC /* Apollo in Frameworks */,
-				C8D670962A7E08C00062BCBC /* ApolloSQLite in Frameworks */,
+				C8310D802A84FB03000803D8 /* GTFS in Frameworks */,
+				C89AD2E62A8B2A80003808E9 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,10 +114,9 @@
 		41150EE62A6E720000E225FB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				41F772262A51381B009D90A3 /* StationSelector.swift */,
+				41F772262A51381B009D90A3 /* DestinationSelector.swift */,
 				413DC90C2A35C5F700BB9334 /* ContentView.swift */,
-				C8D670A32A7E26A90062BCBC /* TripTimeView.swift */,
-				41150EF72A80D6F000E225FB /* TripView.swift */,
+				C8E56D862A863FC90064BE01 /* TripTimeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -127,9 +124,10 @@
 		413DC8FE2A35C5F700BB9334 = {
 			isa = PBXGroup;
 			children = (
+				C8310D812A84FB09000803D8 /* GTFS */,
 				C821E29A2A739CE70072AC77 /* .swiftlint.yml */,
-				C8048ACD2A7149EA0064C89C /* Packages */,
-				C8048AC62A7149430064C89C /* graphql */,
+				C8310D672A84E9E4000803D8 /* stops.txt */,
+				C8E56D822A863C4A0064BE01 /* stops.json */,
 				413DC9092A35C5F700BB9334 /* Trains */,
 				413DC91A2A35C5FA00BB9334 /* TrainsTests */,
 				413DC9242A35C5FA00BB9334 /* TrainsUITests */,
@@ -151,6 +149,7 @@
 		413DC9092A35C5F700BB9334 /* Trains */ = {
 			isa = PBXGroup;
 			children = (
+				C89AD2E92A8B3313003808E9 /* Info.plist */,
 				C821E29E2A7636C40072AC77 /* Model */,
 				413DC90A2A35C5F700BB9334 /* TrainsApp.swift */,
 				C821E2972A73929E0072AC77 /* ViewModel */,
@@ -191,8 +190,11 @@
 			isa = PBXGroup;
 			children = (
 				C8D6709F2A7E14850062BCBC /* CacheManager.swift */,
-				413DC9352A35C6A900BB9334 /* Network.swift */,
 				C8D6709D2A7E0BDA0062BCBC /* Logger.swift */,
+				C8E56D882A8649730064BE01 /* TripPlannerManager.swift */,
+				C89AD2E02A8B0ECF003808E9 /* DateManager.swift */,
+				C89AD2E22A8B0FCE003808E9 /* LocationManager.swift */,
+				C89AD2E72A8B2A8D003808E9 /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -204,30 +206,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C8048AC62A7149430064C89C /* graphql */ = {
-			isa = PBXGroup;
-			children = (
-				C8048AC72A7149430064C89C /* schema.graphqls */,
-				C8048AC82A7149430064C89C /* Stations.graphql */,
-				41150EF02A7E78BF00E225FB /* TripPlanner.graphql */,
-			);
-			path = graphql;
-			sourceTree = "<group>";
-		};
-		C8048ACD2A7149EA0064C89C /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				C8048ACE2A7149EA0064C89C /* OpenTripPlannerApi */,
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		C821E2972A73929E0072AC77 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				C821E2952A7390CB0072AC77 /* StationsViewModel.swift */,
-				C821E2A12A7661540072AC77 /* TripViewModel.swift */,
-				C8D670A52A7E28150062BCBC /* TripTimeViewModel.swift */,
+				C8D670A52A7E28150062BCBC /* TripViewModel.swift */,
+				C89AD2DA2A8B0A3A003808E9 /* TripTimeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -235,11 +219,9 @@
 		C821E29E2A7636C40072AC77 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C8D670A12A7E18A30062BCBC /* Station.swift */,
-				41150EEE2A7E6F3500E225FB /* Stop.swift */,
-				41150EF12A7E7C2400E225FB /* Plan.swift */,
-				41150EF32A7E7C6200E225FB /* Leg.swift */,
-				41150EF52A7FF19C00E225FB /* StopTimes.swift */,
+				C89AD2DC2A8B0AF7003808E9 /* Errors.swift */,
+				C89AD2DE2A8B0B09003808E9 /* APIState.swift */,
+				C89AD2EA2A8B360C003808E9 /* TripPlannerResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -251,7 +233,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 413DC92B2A35C5FA00BB9334 /* Build configuration list for PBXNativeTarget "Trains" */;
 			buildPhases = (
-				C8048A7A2A7133F40064C89C /* GraphQL */,
 				413DC9032A35C5F700BB9334 /* Sources */,
 				413DC9042A35C5F700BB9334 /* Frameworks */,
 				413DC9052A35C5F700BB9334 /* Resources */,
@@ -263,10 +244,8 @@
 			);
 			name = Trains;
 			packageProductDependencies = (
-				C80319DD2A714A8D00D842E8 /* OpenTripPlannerApi */,
-				C8D670932A7E08C00062BCBC /* Apollo */,
-				C8D670952A7E08C00062BCBC /* ApolloSQLite */,
-				C8D6709B2A7E0AA80062BCBC /* ApolloWebSocket */,
+				C8310D7F2A84FB03000803D8 /* GTFS */,
+				C89AD2E52A8B2A80003808E9 /* Alamofire */,
 			);
 			productName = Trains;
 			productReference = 413DC9072A35C5F700BB9334 /* Trains.app */;
@@ -342,7 +321,8 @@
 			mainGroup = 413DC8FE2A35C5F700BB9334;
 			packageReferences = (
 				C8048A7B2A7137890064C89C /* XCRemoteSwiftPackageReference "SwiftLint" */,
-				C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				C8310D7E2A84FB03000803D8 /* XCRemoteSwiftPackageReference "GTFS" */,
+				C89AD2E42A8B2A80003808E9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 413DC9082A35C5F700BB9334 /* Products */;
 			projectDirPath = "";
@@ -360,8 +340,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8310D682A84E9E4000803D8 /* stops.txt in Resources */,
 				C821E29B2A739CE70072AC77 /* .swiftlint.yml in Resources */,
 				413DC9122A35C5FA00BB9334 /* Preview Assets.xcassets in Resources */,
+				C8E56D832A863C4A0064BE01 /* stops.json in Resources */,
 				413DC90F2A35C5FA00BB9334 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,48 +364,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		C8048A7A2A7133F40064C89C /* GraphQL */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = GraphQL;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"graphql/schema.graphqls\" OpenTripPlannerApi.swift\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		413DC9032A35C5F700BB9334 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				413DC93F2A35C6A900BB9334 /* Network.swift in Sources */,
-				C8D670A22A7E18A30062BCBC /* Station.swift in Sources */,
-				C821E2A22A7661540072AC77 /* TripViewModel.swift in Sources */,
-				41150EF82A80D6F000E225FB /* TripView.swift in Sources */,
-				41F772272A51381B009D90A3 /* StationSelector.swift in Sources */,
-				41150EF22A7E7C2400E225FB /* Plan.swift in Sources */,
+				C89AD2DF2A8B0B09003808E9 /* APIState.swift in Sources */,
+				41F772272A51381B009D90A3 /* DestinationSelector.swift in Sources */,
+				C89AD2EB2A8B360C003808E9 /* TripPlannerResponse.swift in Sources */,
 				413DC90D2A35C5F700BB9334 /* ContentView.swift in Sources */,
+				C89AD2DB2A8B0A3A003808E9 /* TripTimeViewModel.swift in Sources */,
 				C8D670A02A7E14850062BCBC /* CacheManager.swift in Sources */,
-				41150EF62A7FF19C00E225FB /* StopTimes.swift in Sources */,
 				C821E2962A7390CB0072AC77 /* StationsViewModel.swift in Sources */,
 				413DC90B2A35C5F700BB9334 /* TrainsApp.swift in Sources */,
-				C8D670A62A7E28150062BCBC /* TripTimeViewModel.swift in Sources */,
-				41150EF42A7E7C6300E225FB /* Leg.swift in Sources */,
-				C8D670A42A7E26A90062BCBC /* TripTimeView.swift in Sources */,
+				C8D670A62A7E28150062BCBC /* TripViewModel.swift in Sources */,
+				C89AD2DD2A8B0AF7003808E9 /* Errors.swift in Sources */,
+				C8E56D872A863FC90064BE01 /* TripTimeView.swift in Sources */,
+				C89AD2E32A8B0FCE003808E9 /* LocationManager.swift in Sources */,
+				C89AD2E12A8B0ECF003808E9 /* DateManager.swift in Sources */,
+				C89AD2E82A8B2A8D003808E9 /* NetworkManager.swift in Sources */,
 				C8D6709E2A7E0BDA0062BCBC /* Logger.swift in Sources */,
-				41150EEF2A7E6F3600E225FB /* Stop.swift in Sources */,
+				C8E56D892A8649730064BE01 /* TripPlannerManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +550,7 @@
 				DEVELOPMENT_TEAM = L9DQK6FQ3F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Trains/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -619,6 +581,7 @@
 				DEVELOPMENT_TEAM = L9DQK6FQ3F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Trains/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -764,40 +727,39 @@
 				minimumVersion = 0.52.4;
 			};
 		};
-		C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+		C8310D7E2A84FB03000803D8 /* XCRemoteSwiftPackageReference "GTFS" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apollographql/apollo-ios";
+			repositoryURL = "https://github.com/emma-k-alexandra/GTFS.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
 			};
 		};
+		C89AD2E42A8B2A80003808E9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C80319DD2A714A8D00D842E8 /* OpenTripPlannerApi */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = OpenTripPlannerApi;
-		};
 		C8048A812A7139E50064C89C /* SwiftLintPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C8048A7B2A7137890064C89C /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintPlugin";
 		};
-		C8D670932A7E08C00062BCBC /* Apollo */ = {
+		C8310D7F2A84FB03000803D8 /* GTFS */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = Apollo;
+			package = C8310D7E2A84FB03000803D8 /* XCRemoteSwiftPackageReference "GTFS" */;
+			productName = GTFS;
 		};
-		C8D670952A7E08C00062BCBC /* ApolloSQLite */ = {
+		C89AD2E52A8B2A80003808E9 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloSQLite;
-		};
-		C8D6709B2A7E0AA80062BCBC /* ApolloWebSocket */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C8D670922A7E08C00062BCBC /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloWebSocket;
+			package = C89AD2E42A8B2A80003808E9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

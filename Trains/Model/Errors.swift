@@ -1,5 +1,5 @@
 //
-//  TripTimeViewModel.swift
+//  Errors.swift
 //  Trains
 //
 //  Created by Ali, Ali on 15/8/2023.
@@ -7,6 +7,6 @@
 
 import Foundation
 
-class TripTimeViewModel: ObservableObject{
-    
+enum Errors: Error {
+    case urlNotFound
 }
