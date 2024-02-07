@@ -1,7 +1,0 @@
-{
-    "otpFeatures" : {
-      "GtfsGraphQlApi": true,
-      "SandboxAPILegacyGraphQLApi": true
-    }
-  }
-  

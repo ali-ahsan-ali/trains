@@ -12,29 +12,20 @@ struct ContentView: View {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont.preferredFont(forTextStyle: .title1)]
     }
 
-    @StateObject var stationViewModel = StationListViewModel()
+    @StateObject var vm = TripViewModel()
     @State private var path = NavigationPath()
 
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
-                List(stationViewModel.savedDestinationStations, id: \.destination.stopId) { destinationViewModel in
-                    Text("\(destinationViewModel.destination.stopName)")
-                        .font(.title2)
-                        .onAppear {
-                            destinationViewModel.retreiveTripDetails()
-                        }
-                }
-                .listStyle(.plain)
-                .headerProminence(.increased)
-                .toolbar {
-                    NavigationLink("Add Trip", value: "From Station")
-                    .navigationDestination(for: String.self) { _ in
-                        DestinationSelector(stationViewModel: stationViewModel, path: $path)
-                    }
-                }
+                Text("HI")
             }
             .navigationBarTitle("Trips")
+            .onAppear {
+                Task {
+                    try? await vm.retreiveTripDetails()
+                }
+            }
         }
     }
 }
