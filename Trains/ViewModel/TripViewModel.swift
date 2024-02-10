@@ -6,35 +6,36 @@
 //
 
 import SwiftUI
-import GTFS
 import Alamofire
+import Observation
+//import SwiftData
 
-class TripViewModel: ObservableObject {
+//@Model
+class TripViewModel {
+//    @Attribute(.unique)
+    let id: UUID
+    let startStop: Stop
+    let endStop: Stop
+    
+    init(id: UUID = UUID(), startStop: Stop, endStop: Stop) {
+        self.id = id
+        self.startStop = startStop
+        self.endStop = endStop
+    }
+    
     func retreiveTripDetails() async throws -> TripRequestResponse {
         let urlRequest = try TripPlannerManager.shared.getTripURLRequest()
-        
         return try await withCheckedThrowingContinuation { continuation in
-            URLSession.shared.dataTask(with: urlRequest) { data, _, error in
-                
-                if let error = error {
-                    continuation.resume(with: .failure(error))
-                    return
-                }
-                
-                guard let data else {
-                    continuation.resume(with: .failure(Errors.urlNotFound))
-                    return
-                }
-                
-                do {
-                    // Parse the JSON data
-                    let result = try JSONDecoder().decode(TripRequestResponse.self, from: data)
-                    print(result.journeys?.first?.legs?.first?.origin?.departureTimeEstimated as Any)
-                    continuation.resume(with: .success(result))
-                } catch {
+            AF.request(urlRequest).validate().responseDecodable(of: TripRequestResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    continuation.resume(with: .success(data))
+                case .failure(let error):
+                    print(error)
                     continuation.resume(with: .failure(error))
                 }
-            }.resume()
+            }
         }
+
     }
 }

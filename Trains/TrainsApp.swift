@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct TrainsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+//                .modelContainer(for: [
+//                    TripViewModel.self
+//                ])
         }
     }
 }

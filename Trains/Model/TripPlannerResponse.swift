@@ -7,26 +7,25 @@
 
 import Foundation
 
-// swiftlint:disable discouraged_optional_boolean
 struct TripRequestResponse: Codable {
-  let version: String?
-  let error: ApiErrorResponse?
-  let journeys: [TripRequestResponseJourney]?
+    let version: String?
+    let error: ApiErrorResponse?
+    let journeys: [TripRequestResponseJourney]?
 }
 
 struct ApiErrorResponse: Codable {
-  let message: String?
+    let message: String?
 }
 
 struct TripRequestResponseJourney: Codable {
-  let legs: [TripRequestResponseJourneyLeg]?
+    let legs: [TripRequestResponseJourneyLeg]?
 }
 
 struct TripRequestResponseJourneyLeg: Codable {
-  let duration: Int?
-  let distance: Int?
-  let origin: TripRequestResponseJourneyLegStop?
-  let destination: TripRequestResponseJourneyLegStop?
+    let duration: Int?
+    let distance: Int?
+    let origin: TripRequestResponseJourneyLegStop?
+    let destination: TripRequestResponseJourneyLegStop?
 }
 
 struct TripRequestResponseJourneyLegStop: Codable {
@@ -36,6 +35,11 @@ struct TripRequestResponseJourneyLegStop: Codable {
     let departureTimePlanned: String?
     let id: String
     let name: String
+    let infos: TripRequestResponseJourneyLegStopInfo?
 }
 
-// swiftlint:enable discouraged_optional_boolean
+struct TripRequestResponseJourneyLegStopInfo: Codable {
+    let content: String
+    let subtitle: String
+    let priority: String
+}
