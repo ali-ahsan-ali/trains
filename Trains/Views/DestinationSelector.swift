@@ -6,30 +6,29 @@
 //
 
 import SwiftUI
-import GTFS
+import SwiftData
 
-struct DestinationSelector: View {
-    @ObservedObject var stationViewModel: StationListViewModel
-    @State private var searchText = ""
+struct DestinationSelector: View {    
+//    @Environment(\.modelContext) private var modelContext
+    @State var viewModel: StationListViewModel
+    @State private var startingStop: Stop?
     @Binding var path: NavigationPath
+    @State private var searchText = ""
 
     var body: some View {
         VStack {
             stationList()
         }
         .navigationBarTitle("To Station", displayMode: .inline)
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
-        .onAppear {
-            stationViewModel.retreiveStations()
-        }
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
     }
 
     var filteredStations: [String: [Stop]] {
         if searchText.isEmpty {
-            return stationViewModel.stations
+            return viewModel.stops
         } else {
             var result: [String: [Stop]] = [:]
-            stationViewModel.stations.forEach { stationDict in
+            viewModel.stops.forEach { stationDict in
                 let values = stationDict.value.filter { value in
                     value.stopName.localizedCaseInsensitiveContains(searchText)
                 }
@@ -43,29 +42,39 @@ struct DestinationSelector: View {
 
     @ViewBuilder
     func stationList() -> some View {
-        if stationViewModel.stations.isEmpty && stationViewModel.isError == false {
-            Text("Loading...")
-        } else if stationViewModel.isError == true, let error = stationViewModel.appAlert {
-            Text(error)
+        if viewModel.shouldShowAlert == true {
+            Text(viewModel.alertMessage)
         } else {
             List {
                 ForEach(filteredStations.keys.sorted(), id: \.self) { key in
                     Section(header: Text("\(key)")) {
                         ForEach(filteredStations[key] ?? [], id: \.stopId) { station in
                             Button(
-                                "\(station.stopName)",
+                                station.stopName,
                                 action: {
-                                    if !self.stationViewModel.savedDestinationStations.contains(where: { $0.destination.stopId == station.stopId }) {
-                                        stationViewModel.appendDestination(station)
-                                        stationViewModel.saveDestinationStations()
+                                    if startingStop == nil {
+                                        path.append("To Stations")
+                                        return
+                                    } else {
+                                        if !viewModel.trips.contains {$0.startStop == startingStop && $0.endStop == station} {
+                            //                modelContext.insert(TripViewModel(startStop: startingStop, endStop: station))
+                                        }
+                                        self.path = NavigationPath()
                                     }
-                                    self.path = NavigationPath()
                                 }
-                            )
+                            ).navigationDestination(for: String.self) { path in
+                                if path == "To Stations" {
+                                    DestinationSelector(viewModel: viewModel, startingStop: station, path: $path)
+                                } else {
+                                    EmptyView()
+                                }
+                            }
                         }
-                    }.headerProminence(.increased)
+                    }
+                    .headerProminence(.increased)
                 }
-            }.listStyle(.plain)
+            }
+            .listStyle(.plain)
             .clipped()
         }
     }
@@ -74,6 +83,6 @@ struct DestinationSelector: View {
 struct DestinationSelector_Previews: PreviewProvider {
     static var previews: some View {
         @State var path = NavigationPath()
-        DestinationSelector(stationViewModel: StationListViewModel(), path: $path)
+        DestinationSelector(viewModel: StationListViewModel(), path: $path)
     }
 }
