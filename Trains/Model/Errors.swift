@@ -9,4 +9,6 @@ import Foundation
 
 enum Errors: Error {
     case urlNotFound
+    case noJourney
+    case dataError
 }

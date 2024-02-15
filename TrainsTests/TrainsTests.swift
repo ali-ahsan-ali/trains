@@ -2,10 +2,11 @@
 //  TrainsTests.swift
 //  TrainsTests
 //
-//  Created by Ali Ali on 11/6/2023.
+//  Created by Ali Ali on 10/2/2024.
 //
 
 import XCTest
+@testable import Trains
 
 final class TrainsTests: XCTestCase {
 
@@ -27,7 +28,7 @@ final class TrainsTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }

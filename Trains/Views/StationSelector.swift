@@ -8,18 +8,20 @@
 import SwiftUI
 import SwiftData
 
-struct DestinationSelector: View {    
-//    @Environment(\.modelContext) private var modelContext
-    @State var viewModel: StationListViewModel
-    @State private var startingStop: Stop?
+struct StationSelector: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query var allTrips: [TripViewModel]
+    
+    var viewModel: StationListViewModel
     @Binding var path: NavigationPath
+    @State var startingStop: Stop?
     @State private var searchText = ""
 
     var body: some View {
         VStack {
             stationList()
         }
-        .navigationBarTitle("To Station", displayMode: .inline)
+        .navigationBarTitle(startingStop == nil ? "From Station" : "To Station", displayMode: .inline)
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
     }
 
@@ -49,24 +51,23 @@ struct DestinationSelector: View {
                 ForEach(filteredStations.keys.sorted(), id: \.self) { key in
                     Section(header: Text("\(key)")) {
                         ForEach(filteredStations[key] ?? [], id: \.stopId) { station in
-                            Button(
-                                station.stopName,
-                                action: {
-                                    if startingStop == nil {
-                                        path.append("To Stations")
-                                        return
-                                    } else {
-                                        if !viewModel.trips.contains {$0.startStop == startingStop && $0.endStop == station} {
-                            //                modelContext.insert(TripViewModel(startStop: startingStop, endStop: station))
-                                        }
-                                        self.path = NavigationPath()
+                            Button {
+                                if let startingStop {
+                                    modelContext.insert(TripViewModel(startStop: startingStop, endStop: station))
+                                    do {
+                                        try modelContext.save()
+                                    } catch {
+                                        TrainLogger.stops.error("\(error)")
                                     }
-                                }
-                            ).navigationDestination(for: String.self) { path in
-                                if path == "To Stations" {
-                                    DestinationSelector(viewModel: viewModel, startingStop: station, path: $path)
+                                    self.path = NavigationPath()
                                 } else {
-                                    EmptyView()
+                                    path.append(Destinations.stationSelector(station: station))
+                                }
+                            } label: {
+                                HStack{
+                                    Text(station.stopName)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
                                 }
                             }
                         }
@@ -80,9 +81,11 @@ struct DestinationSelector: View {
     }
 }
 
-struct DestinationSelector_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var path = NavigationPath()
-        DestinationSelector(viewModel: StationListViewModel(), path: $path)
+#Preview {
+    @State var path = NavigationPath()
+    path.append(Destinations.stationSelector(station: nil))
+    return NavigationStack{
+        StationSelector(viewModel: StationListViewModel(), path: $path)
+            .modelContainer(previewContainer)
     }
 }

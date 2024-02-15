@@ -2,10 +2,11 @@
 //  TrainsUITestsLaunchTests.swift
 //  TrainsUITests
 //
-//  Created by Ali Ali on 11/6/2023.
+//  Created by Ali Ali on 10/2/2024.
 //
 
 import XCTest
+@testable import Trains
 
 final class TrainsUITestsLaunchTests: XCTestCase {
 

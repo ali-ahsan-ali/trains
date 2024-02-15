@@ -25,9 +25,4 @@ class StationListViewModel {
             TrainLogger.stops.error("There was an issue retrieving the list of stations. Error: \(error)")
         }
     }
-    
-    func add(startStop: Stop, endStop: Stop){
-        // add
-        // persist
-    }
 }

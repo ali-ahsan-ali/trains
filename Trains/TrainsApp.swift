@@ -10,12 +10,18 @@ import SwiftData
 
 @main
 struct TrainsApp: App {
+    public let container: ModelContainer = {
+        do {
+            return try ModelContainer(for: TripViewModel.self, Stop.self, configurations: ModelConfiguration())
+        } catch {
+            fatalError("Failed to configure SwiftData container.")
+        }
+    }()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-//                .modelContainer(for: [
-//                    TripViewModel.self
-//                ])
         }
+        .modelContainer(container)
     }
 }
