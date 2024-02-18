@@ -7,25 +7,33 @@
 
 import Foundation
 
-
 struct TripRequestResponse: Codable {
     let version: String?
     let error: ApiErrorResponse?
-    let journeys: [TripRequestResponseJourney]?
+    var journeys: [TripRequestResponseJourney]?
+    
+    var firstDepartureTimeEstimated: Date {
+        journeys?.first?.firstDepartureTimeEstimated ?? Date.now
+    }
+    
+    var firstDepartureTimeEstimatedString: String {
+        ISO8601DateFormatter().string(from: firstDepartureTimeEstimated)
+    }
+    
 }
 
 struct ApiErrorResponse: Codable {
     let message: String?
 }
 
-struct TripRequestResponseJourney: Codable, Hashable {   
+struct TripRequestResponseJourney: Codable, Hashable {
     let legs: [TripRequestResponseJourneyLeg]?
     
-    var departureTimeEstimated: Date {
+    var firstDepartureTimeEstimated: Date {
         legs?.first?.origin?.departureTimeEstimatedDate ?? Date.distantPast
     }
     
-    var arrivalTimeEstimatedDate: Date {
+    var firstArrivalTimeEstimatedDate: Date {
         legs?.last?.destination?.arrivalTimeEstimatedDate ?? Date.distantPast
     }
     
@@ -52,7 +60,7 @@ struct TripRequestResponseJourneyLeg: Codable, Hashable {
 }
 
 struct TripTransportation: Codable, Hashable {
-    let iconId: Int
+    let iconId: Int?
     
     var mappedId: String {
         switch iconId {
@@ -103,13 +111,11 @@ struct TripRequestResponseJourneyLegStop: Codable, Hashable {
     let infos: TripRequestResponseJourneyLegStopInfo?
     
     var departureTimeEstimatedDate: Date? {
-        let formatter = ISO8601DateFormatter()
-        return formatter.date(from: departureTimeEstimated ?? "")
+        ISO8601DateFormatter().date(from: departureTimeEstimated ?? "")
     }
     
     var arrivalTimeEstimatedDate: Date? {
-        let formatter = ISO8601DateFormatter()
-        return formatter.date(from: arrivalTimeEstimated ?? "")
+        ISO8601DateFormatter().date(from: arrivalTimeEstimated ?? "")
     }
 }
 

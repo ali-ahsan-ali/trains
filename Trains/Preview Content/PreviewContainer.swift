@@ -11,10 +11,10 @@ import SwiftData
 @MainActor
 let previewContainer: ModelContainer = {
     do {
-        let container = try ModelContainer (for: TripViewModel.self, configurations: ModelConfiguration())
+        let container = try ModelContainer (for: Trip.self, configurations: ModelConfiguration())
         try StopManager.retreiveStations().values.forEach{ stops in
             for stop in stops {
-                container.mainContext.insert(TripViewModel(startStop: stop, endStop: stop))
+                container.mainContext.insert(Trip(startStop: stop, endStop: stop))
             }
         }
         return container

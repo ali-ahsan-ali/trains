@@ -12,7 +12,7 @@ import SwiftData
 struct TrainsApp: App {
     public let container: ModelContainer = {
         do {
-            return try ModelContainer(for: TripViewModel.self, Stop.self, configurations: ModelConfiguration())
+            return try ModelContainer(for: Trip.self, Stop.self, configurations: ModelConfiguration())
         } catch {
             fatalError("Failed to configure SwiftData container.")
         }

@@ -10,29 +10,27 @@ import SwiftUI
 import SwiftData
 
 struct Provider: AppIntentTimelineProvider {
-    @MainActor
+    
     func placeholder(in context: Context) -> SimpleEntry {
         TrainLogger.stops.debug("placeholder")
 
         return SimpleEntry(date: Date.now, configuration: ConfigurationAppIntent(), arrivalTime: Date.now, departureStop: Stop(stopId: "1", stopName: "Pymble"), arrivalStop: Stop(stopId: "1", stopName: "Central"))
     }
 
-    @MainActor
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
         TrainLogger.stops.debug("snapshot")
         return SimpleEntry(date: Date.now, configuration: configuration, arrivalTime: Date.now, departureStop: Stop(stopId: "1", stopName: "Pymble"), arrivalStop: Stop(stopId: "1", stopName: "Central"))
     }
     
-    @MainActor
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        let trips = getTrips()
+        let trip = await getFavouriteTrip()
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        guard let firstTrip = trips.first, let journeys = try? await firstTrip.retreiveTripDetails().journeys, !journeys.isEmpty else {
+        guard let trip, let journeys = try? await trip.retreiveTripDetails().journeys, !journeys.isEmpty else {
             TrainLogger.stops.debug("No Journeys")
             return Timeline(entries: [], policy: .atEnd)
         }
         let entries: [SimpleEntry] = journeys.map{ journey in
-            let entry = SimpleEntry(date: journey.departureTimeEstimated, configuration: configuration, arrivalTime: journey.arrivalTimeEstimatedDate, departureStop: firstTrip.startStop, arrivalStop: firstTrip.endStop)
+            let entry = SimpleEntry(date: journey.firstDepartureTimeEstimated, configuration: configuration, arrivalTime: journey.firstArrivalTimeEstimatedDate, departureStop: trip.trip.startStop, arrivalStop: trip.trip.endStop)
             return entry
         }
         TrainLogger.stops.debug("Timelines: First \(entries[0].formattedDate)")
@@ -41,14 +39,22 @@ struct Provider: AppIntentTimelineProvider {
     }
     
     @MainActor
-    private func getTrips() -> [TripViewModel] {
-        guard let container = try? ModelContainer(for: TripViewModel.self, Stop.self) else {
+    private func getFavouriteTrip() -> TripViewModel? {
+        guard let container = try? ModelContainer(for: Trip.self, Stop.self) else {
             TrainLogger.stops.debug("Empty Container")
-            return []
+            return nil
         }
-        let descriptor = FetchDescriptor<TripViewModel>()
-        let trips =  try? container.mainContext.fetch(descriptor)
-        return trips ?? []
+        let descriptor = FetchDescriptor<Trip>(predicate: #Predicate { trip in
+            trip.favourite == true
+        })
+        guard let trip =  try? container.mainContext.fetch(descriptor).first else {
+            guard let firstTrip = try? container.mainContext.fetch(FetchDescriptor<Trip>()).first else {
+                return nil
+            }
+            return TripViewModel(trip: firstTrip)
+        }
+        return TripViewModel(trip: trip)
+
     }
 }
 
@@ -85,9 +91,27 @@ struct LiveTrainsEntryView : View {
                 Text("Departure Time: \(entry.formattedDate)")
                 Text("Arrival Time: \(entry.formattedArrivalDate)")
             }
+            Button(intent: ReloadWidgetIntent()) {
+                Text("Refresh")
+            }
         }
     }
 }
+
+import AppIntents
+
+struct ReloadWidgetIntent: AppIntent {
+    static var title: LocalizedStringResource = "Reload widget"
+    static var description = IntentDescription("Reload widget.")
+
+    init() {}
+
+    func perform() async throws -> some IntentResult {
+        WidgetCenter.shared.reloadAllTimelines()
+        return .result()
+    }
+}
+
 
 struct LiveTrains: Widget {
     let kind: String = "LiveTrains"

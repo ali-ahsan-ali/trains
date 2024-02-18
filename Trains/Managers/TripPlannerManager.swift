@@ -62,7 +62,6 @@ class TripPlannerManager {
             Foundation.URLQueryItem(name: "version", value: "10.2.1.42")
         ]
         request.url?.append(queryItems: queryParameters)
-        TrainLogger.stops.debug("\(request)")
         return request
     }
 }

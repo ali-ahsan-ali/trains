@@ -10,29 +10,40 @@ import SwiftUI
 struct TripView: View {
     let viewModel: TripViewModel
     
+    init(trip: Trip){
+        self.viewModel = TripViewModel(trip: trip)
+    }
+    
     var body: some View {
         VStack{
-            if let journeys = viewModel.trips?.journeys {
-                List(journeys, id:\.self){ journey in
-                    VStack{
-                        HStack{
-                            Text("Departure time: ")
-                            Text(journey.departureTimeEstimated, style: .time)
+            if let journeys = viewModel.tripResponse?.journeys {
+                withAnimation(Animation.easeIn(duration: 2).delay(0.5)) {
+                    List(journeys, id:\.self){ journey in
+                        VStack{
+                            HStack{
+                                Text("Departure time: ")
+                                Text(journey.firstDepartureTimeEstimated, style: .time)
+                            }
+                            HStack{
+                                Text("Arrival time: ")
+                                Text(journey.firstArrivalTimeEstimatedDate, style: .time)
+                            }
+                            Text(journey.legsDescription)
                         }
-                        HStack{
-                            Text("Arrival time: ")
-                            Text(journey.arrivalTimeEstimatedDate, style: .time)
-                        }
-                        Text(journey.legsDescription)
                     }
                 }
             } else {
-                Text("No trips available :(")
+                VStack {
+                    List(0...10, id:\.self){_ in
+                        Shimmer()
+                            .frame(height: 40)
+                    }
+                }
             }
         }
         .listStyle(.plain)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("\(viewModel.startStop.stopName) -> \(viewModel.endStop.stopName)")
+        .navigationTitle("\(viewModel.trip.startStop.stopName) -> \(viewModel.trip.endStop.stopName)")
     }
 }
 

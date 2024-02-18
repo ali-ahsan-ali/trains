@@ -10,7 +10,7 @@ import SwiftData
 
 struct StationSelector: View {
     @Environment(\.modelContext) private var modelContext
-    @Query var allTrips: [TripViewModel]
+    @Query var allTrips: [Trip]
     
     var viewModel: StationListViewModel
     @Binding var path: NavigationPath
@@ -42,6 +42,7 @@ struct StationSelector: View {
         }
     }
 
+    @MainActor 
     @ViewBuilder
     func stationList() -> some View {
         if viewModel.shouldShowAlert == true {
@@ -53,7 +54,7 @@ struct StationSelector: View {
                         ForEach(filteredStations[key] ?? [], id: \.stopId) { station in
                             Button {
                                 if let startingStop {
-                                    modelContext.insert(TripViewModel(startStop: startingStop, endStop: station))
+                                    modelContext.insert(Trip(startStop: startingStop, endStop: station))
                                     do {
                                         try modelContext.save()
                                     } catch {
