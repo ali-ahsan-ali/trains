@@ -6,32 +6,34 @@
 //
 
 import SwiftUI
+import ActivityKit
+import LiveTrainsExtension
 
 struct TripView: View {
     let viewModel: TripViewModel
-    
-    init(trip: Trip){
-        self.viewModel = TripViewModel(trip: trip)
+    init (trip: Trip){
+        viewModel = TripViewModel(trip: trip)
     }
-    
     var body: some View {
         VStack{
-            if let journeys = viewModel.tripResponse?.journeys {
-                withAnimation(Animation.easeIn(duration: 2).delay(0.5)) {
-                    List(journeys, id:\.self){ journey in
-                        VStack{
-                            HStack{
-                                Text("Departure time: ")
-                                Text(journey.firstDepartureTimeEstimated, style: .time)
-                            }
-                            HStack{
-                                Text("Arrival time: ")
-                                Text(journey.firstArrivalTimeEstimatedDate, style: .time)
-                            }
-                            Text(journey.legsDescription)
+            if let tripTimes = viewModel.tripTimes {
+                List(tripTimes, id:\.self){ tripTimes in
+                    VStack{
+                        HStack{
+                            Text("Departure time: ")
+                            Text(tripTimes.startTime, style: .time)
+                        }
+                        HStack{
+                            Text("Arrival time: ")
+                            Text(tripTimes.endTime, style: .time)
                         }
                     }
+                }.onAppear{
+                    guard let tripTimes = viewModel.tripTimes, viewModel.trip.favourite == true else { return }
+                    viewModel.startLiveActivity(tripTimes: tripTimes)
                 }
+            } else if let error = viewModel.tripError{
+                Text("\(error)")
             } else {
                 VStack {
                     List(0...10, id:\.self){_ in

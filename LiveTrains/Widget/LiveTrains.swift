@@ -8,6 +8,7 @@
 import WidgetKit
 import SwiftUI
 import SwiftData
+import ActivityKit
 
 struct Provider: AppIntentTimelineProvider {
     

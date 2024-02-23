@@ -60,6 +60,10 @@ public final class Stop: Codable, FromCSVLine, Equatable, Hashable {
         self.platformCode = platformCode
     }
     
+    public var stopNameWithoutStation: String {
+        stopName.lowercased().replacingOccurrences(of: "Station", with: "").capitalized
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case id
         case stopId

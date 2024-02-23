@@ -37,6 +37,13 @@ struct TripRequestResponseJourney: Codable, Hashable {
         legs?.last?.destination?.arrivalTimeEstimatedDate ?? Date.distantPast
     }
     
+    var tripTime: TripTime? {
+        guard let first = legs?.first?.origin?.departureTimeEstimatedDate, let last = legs?.last?.destination?.arrivalTimeEstimatedDate else {
+            return nil
+        }
+        return TripTime(startTime: first, endTime: last)
+    }
+    
     var legsDescription: String {
         guard let legs else { return  "" }
         var legsMapped: [String] = []
@@ -110,12 +117,12 @@ struct TripRequestResponseJourneyLegStop: Codable, Hashable {
     let name: String
     let infos: TripRequestResponseJourneyLegStopInfo?
     
-    var departureTimeEstimatedDate: Date? {
-        ISO8601DateFormatter().date(from: departureTimeEstimated ?? "")
+    var departureTimeEstimatedDate: Date {
+        ISO8601DateFormatter().date(from: departureTimeEstimated ?? "") ?? Date.distantPast
     }
     
-    var arrivalTimeEstimatedDate: Date? {
-        ISO8601DateFormatter().date(from: arrivalTimeEstimated ?? "")
+    var arrivalTimeEstimatedDate: Date {
+        ISO8601DateFormatter().date(from: arrivalTimeEstimated ?? "")  ?? Date.distantPast
     }
 }
 

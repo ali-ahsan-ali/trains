@@ -8,13 +8,17 @@
 import SwiftUI
 import Alamofire
 import Combine
+import ActivityKit
 
 @Observable
 final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
     let trip: Trip
     private(set) var tripError: String?
     private(set) var tripResponse: TripRequestResponse?
+    private(set) var tripTimes: [TripTime]?
     
+    
+    @ObservationIgnored var currentActivity: Activity<LiveTrainsAttributes>? = nil
     @ObservationIgnored private var cancellables = [AnyCancellable]()
     @ObservationIgnored private var isLoading = false
     var id: ObjectIdentifier{
@@ -23,17 +27,40 @@ final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
 
     init(trip: Trip) {
         self.trip = trip
+        guard trip.id != "11" else { return }
+        
         retrieveTrip()
         
         Timer.publish(every: 30, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 guard let self, !self.isLoading else { return }
-                // In the 5 minutes before a train is to arrive, refresh the data and make sure that it is not coming early
-                guard (self.tripResponse?.firstDepartureTimeEstimated ?? Date.now).addingTimeInterval(-60 * 5) < Date.now else { return }
+                // In the 10 minutes before a train is to arrive, refresh the data and make sure that it is not coming early or cancelled
+                guard (self.tripResponse?.firstDepartureTimeEstimated ?? Date.distantPast).addingTimeInterval(-60 * 10) < Date.now else { return }
                 self.retrieveTrip()
+                guard let tripTimes else {
+                    Task {
+                        await self.currentActivity?.end(.none, dismissalPolicy: .immediate)
+                    }
+                    return
+                }
+                Task {
+                    await self.updateTrips(times: tripTimes)
+                }
             }
             .store(in: &cancellables)
+    }
+    
+    func setTripTimes(){
+        guard let journeys = tripResponse?.journeys else {
+            return
+        }
+        tripTimes = []
+        journeys.forEach{ journey in
+            if let tripTime = journey.tripTime {
+                tripTimes?.append(tripTime)
+            }
+        }
     }
     
     
@@ -47,9 +74,14 @@ final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
                 let journeys = Array(self.tripResponse?.journeys?.drop(while: { journey in
                     journey.firstArrivalTimeEstimatedDate < Date.now
                 }) ?? [])
-                self.tripResponse?.journeys = journeys
                 
+                self.tripResponse?.journeys = journeys
                 TrainLogger.stops.debug("Network Request made. Departure time: \(self.tripResponse?.firstDepartureTimeEstimatedString ?? "Cannot find departure :(")")
+                
+                self.setTripTimes()
+                TrainLogger.stops.debug("Setting triptimes. \(self.tripTimes?.debugDescription ?? "No trip times")")
+                
+                self.tripError = ""
             } catch {
                 self.tripError = "Error: \(error)"
             }

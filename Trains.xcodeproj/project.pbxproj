@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		411B8A342B8196300079F840 /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B8A332B8196300079F840 /* Shimmer.swift */; };
+		411B8A392B860B780079F840 /* LiveTrainsLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BFFE002B7CA1E60062454A /* LiveTrainsLiveActivity.swift */; };
+		411B8A3B2B860D6C0079F840 /* LiveActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B8A3A2B860D6C0079F840 /* LiveActivityViewModel.swift */; };
+		411B8A3D2B86C2AC0079F840 /* LiveTrainAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B8A3C2B86C2AC0079F840 /* LiveTrainAttributes.swift */; };
+		411B8A402B86C2E50079F840 /* LiveTrainAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B8A3C2B86C2AC0079F840 /* LiveTrainAttributes.swift */; };
+		411B8A422B86D1730079F840 /* TrainTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B8A412B86D1730079F840 /* TrainTime.swift */; };
+		411B8A432B86D18D0079F840 /* TrainTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B8A412B86D1730079F840 /* TrainTime.swift */; };
+		411B8A442B88652A0079F840 /* LiveActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B8A3A2B860D6C0079F840 /* LiveActivityViewModel.swift */; };
+		411B8A462B88A14F0079F840 /* LiveTrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B8A452B88A14E0079F840 /* LiveTrainProgressView.swift */; };
+		411B8A472B88A14F0079F840 /* LiveTrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411B8A452B88A14E0079F840 /* LiveTrainProgressView.swift */; };
 		413F55C82B77A0EF0043EEB2 /* TrainsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F55C72B77A0EF0043EEB2 /* TrainsTests.swift */; };
 		413F55D52B77A0FC0043EEB2 /* TrainsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F55D42B77A0FC0043EEB2 /* TrainsUITests.swift */; };
 		413F55D72B77A0FC0043EEB2 /* TrainsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F55D62B77A0FC0043EEB2 /* TrainsUITestsLaunchTests.swift */; };
@@ -94,6 +103,10 @@
 
 /* Begin PBXFileReference section */
 		411B8A332B8196300079F840 /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
+		411B8A3A2B860D6C0079F840 /* LiveActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityViewModel.swift; sourceTree = "<group>"; };
+		411B8A3C2B86C2AC0079F840 /* LiveTrainAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTrainAttributes.swift; sourceTree = "<group>"; };
+		411B8A412B86D1730079F840 /* TrainTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTime.swift; sourceTree = "<group>"; };
+		411B8A452B88A14E0079F840 /* LiveTrainProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTrainProgressView.swift; sourceTree = "<group>"; };
 		413F55C52B77A0EF0043EEB2 /* TrainsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		413F55C72B77A0EF0043EEB2 /* TrainsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainsTests.swift; sourceTree = "<group>"; };
 		413F55D22B77A0FC0043EEB2 /* TrainsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +185,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		411B8A3E2B86C2B60079F840 /* LiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				41BFFE002B7CA1E60062454A /* LiveTrainsLiveActivity.swift */,
+				411B8A3A2B860D6C0079F840 /* LiveActivityViewModel.swift */,
+				411B8A3C2B86C2AC0079F840 /* LiveTrainAttributes.swift */,
+				411B8A452B88A14E0079F840 /* LiveTrainProgressView.swift */,
+			);
+			path = LiveActivity;
+			sourceTree = "<group>";
+		};
+		411B8A3F2B86C2CC0079F840 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				41BFFE042B7CA1E60062454A /* AppIntent.swift */,
+				41BFFE022B7CA1E60062454A /* LiveTrains.swift */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 		413DC8FE2A35C5F700BB9334 = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +286,7 @@
 				4158413A2B77264100485B07 /* Stop.swift */,
 				4158413F2B77271F00485B07 /* Errors.swift */,
 				41D2B90A2B79EF1A0052158A /* Trips.swift */,
+				411B8A412B86D1730079F840 /* TrainTime.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,10 +323,9 @@
 		41BFFDFD2B7CA1E60062454A /* LiveTrains */ = {
 			isa = PBXGroup;
 			children = (
+				411B8A3F2B86C2CC0079F840 /* Widget */,
+				411B8A3E2B86C2B60079F840 /* LiveActivity */,
 				41BFFDFE2B7CA1E60062454A /* LiveTrainsBundle.swift */,
-				41BFFE002B7CA1E60062454A /* LiveTrainsLiveActivity.swift */,
-				41BFFE022B7CA1E60062454A /* LiveTrains.swift */,
-				41BFFE042B7CA1E60062454A /* AppIntent.swift */,
 				41BFFE062B7CA1E70062454A /* Assets.xcassets */,
 				41BFFE082B7CA1E70062454A /* Info.plist */,
 			);
@@ -484,13 +517,18 @@
 				4158411C2B770BC700485B07 /* TripViewModel.swift in Sources */,
 				4158412B2B770BC700485B07 /* TrainsApp.swift in Sources */,
 				418DF3512B7797F400BA7AC1 /* PreviewContainer.swift in Sources */,
+				411B8A422B86D1730079F840 /* TrainTime.swift in Sources */,
 				4158413B2B77264100485B07 /* Stop.swift in Sources */,
 				415841342B770EE400485B07 /* StopManager.swift in Sources */,
+				411B8A462B88A14F0079F840 /* LiveTrainProgressView.swift in Sources */,
 				411B8A342B8196300079F840 /* Shimmer.swift in Sources */,
 				4158412E2B770BC700485B07 /* StationSelector.swift in Sources */,
+				411B8A3B2B860D6C0079F840 /* LiveActivityViewModel.swift in Sources */,
 				41D2B90D2B7A0AA00052158A /* TripView.swift in Sources */,
+				411B8A392B860B780079F840 /* LiveTrainsLiveActivity.swift in Sources */,
 				415841402B77271F00485B07 /* Errors.swift in Sources */,
 				41BFFE1D2B7F5EE90062454A /* Timer.swift in Sources */,
+				411B8A3D2B86C2AC0079F840 /* LiveTrainAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,17 +555,21 @@
 			files = (
 				41BFFE192B7CA9960062454A /* Double+Extensions.swift in Sources */,
 				41BFFE032B7CA1E60062454A /* LiveTrains.swift in Sources */,
+				411B8A472B88A14F0079F840 /* LiveTrainProgressView.swift in Sources */,
 				41BFFE1E2B7F69FC0062454A /* Trips.swift in Sources */,
 				41BFFE182B7CA9900062454A /* Logger.swift in Sources */,
 				41BFFE112B7CA57C0062454A /* TripViewModel.swift in Sources */,
 				41BFFE172B7CA98A0062454A /* CSV.swift in Sources */,
 				41BFFE052B7CA1E60062454A /* AppIntent.swift in Sources */,
+				411B8A432B86D18D0079F840 /* TrainTime.swift in Sources */,
 				41BFFE102B7CA3A30062454A /* Stop.swift in Sources */,
 				41BFFE152B7CA95D0062454A /* Errors.swift in Sources */,
 				41BFFE122B7CA6DE0062454A /* TripPlannerResponse.swift in Sources */,
 				41BFFDFF2B7CA1E60062454A /* LiveTrainsBundle.swift in Sources */,
 				41BFFE012B7CA1E60062454A /* LiveTrainsLiveActivity.swift in Sources */,
 				41BFFE162B7CA9640062454A /* TripPlannerManager.swift in Sources */,
+				411B8A402B86C2E50079F840 /* LiveTrainAttributes.swift in Sources */,
+				411B8A442B88652A0079F840 /* LiveActivityViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +647,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -663,7 +705,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -681,6 +723,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Trains/Trains.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Trains/Preview Content\"";
@@ -698,7 +741,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -706,6 +749,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Ali.Trains;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -719,6 +763,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Trains/Trains.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Trains/Preview Content\"";
@@ -736,7 +781,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -744,6 +789,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Ali.Trains;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

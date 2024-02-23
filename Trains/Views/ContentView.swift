@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+import ActivityKit
+import LiveTrainsExtension
 
 enum Destinations: Hashable {
     case stationSelector(station: Stop?)
@@ -26,7 +28,6 @@ struct ContentView: View {
     @State var stationViewModel = StationListViewModel()
     @State private var path = NavigationPath()
     @Query var trips: [Trip]
-    @State var viewModels: [TripViewModel] = []
     @State private var hasAppeared = false
     @State private var alert = false
     @State private var alertMessage = ""
@@ -40,9 +41,7 @@ struct ContentView: View {
                     }
                 }
                 .onDelete{ indexSet in
-                    viewModels.remove(atOffsets: indexSet)
                     for index in indexSet.reversed() {
-                        modelContext.delete(trips[index])
                         deleteTrip(trips[index])
                     }
                 }
@@ -54,20 +53,19 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink("Add Trip", value: Destinations.stationSelector(station: nil))
-                        .navigationDestination(for: Destinations.self) { destination in
-                            switch destination {
-                            case .stationSelector(station: let stop):
-                                StationSelector(viewModel: stationViewModel, path:$path , startingStop: stop)
-                            case .tripView(trip: let trip):
-                                TripView(trip: trip)
-                            case .individualTripView:
-                                EmptyView()
-                            }
-                        }
                 }
-                
             }
             .navigationBarTitle("Trips")
+            .navigationDestination(for: Destinations.self) { destination in
+                switch destination {
+                case .stationSelector(station: let stop):
+                    StationSelector(viewModel: stationViewModel, path:$path , startingStop: stop)
+                case .tripView(trip: let trip):
+                    TripView(trip: trip)
+                case .individualTripView:
+                    EmptyView()
+                }
+            }
         }
         .alert(alertMessage, isPresented: $alert, actions: {
             Button {
@@ -76,7 +74,6 @@ struct ContentView: View {
                 Text("OK")
             }
         })
-
     }
     
     func deleteTrip(_ trip: Trip) {
@@ -105,7 +102,7 @@ struct ContentView: View {
                 .frame(width: 20, height: 20)
                 .foregroundStyle(trip.favourite ? .yellow : .gray)
                 .onTapGesture {
-                    for trip in trips {
+                    trips.forEach { trip in
                         trip.favourite = false
                     }
                     trip.favourite.toggle()
