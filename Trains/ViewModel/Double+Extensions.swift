@@ -11,7 +11,6 @@ extension Double {
     static func from(_ string: String?) -> Double? {
         if let string = string {
             return Double(string)
-
         } else {
             return nil
         }

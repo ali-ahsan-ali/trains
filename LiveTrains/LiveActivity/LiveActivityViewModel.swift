@@ -15,12 +15,12 @@ extension TripViewModel {
         guard currentActivity == nil else { return }
         if ActivityAuthorizationInfo().areActivitiesEnabled {
             do {
-                let liveTrain = LiveTrainsAttributes(startStopName: trip.startStop.stopName, endStopName: trip.endStop.stopName)
+                let liveTrain = LiveTrainsAttributes(startStopName: trip.startStop.stopNameWithoutStation, endStopName: trip.endStop.stopNameWithoutStation)
                 let initialState = LiveTrainsAttributes.ContentState(times: tripTimes)
                 
                 self.currentActivity = try Activity.request(
                     attributes: liveTrain,
-                    content: .init(state: initialState, staleDate: nil),
+                    content: .init(state: initialState, staleDate: tripTimes.first?.startTime ?? nil),
                     pushType: nil
                 )
                 TrainLogger.stops.debug("Started live activity")
@@ -48,7 +48,7 @@ extension TripViewModel {
         await activity.update(
             ActivityContent<LiveTrainsAttributes.ContentState>(
                 state: contentState,
-                staleDate: nil,
+                staleDate: times.first?.startTime ?? nil,
                 relevanceScore: 50
             ),
             alertConfiguration: nil

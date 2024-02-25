@@ -36,6 +36,7 @@ struct ContentView: View {
         NavigationStack(path: $path) {
             List{
                 ForEach(trips) { trip in
+                    TimeProgressView(viewModel: ProgressBarViewModel(tripTime: Date.now.addingTimeInterval(100)...Date.now.addingTimeInterval(1000)))
                     NavigationLink(value: Destinations.tripView(trip: trip)) {
                         tripRow(trip: trip)
                     }

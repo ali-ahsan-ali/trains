@@ -56,7 +56,8 @@ struct LiveTrainsLiveActivity: Widget {
                         if closedDateRange.isEmpty {
                             Text("Now")
                         } else {
-                            Text(timerInterval: Date.now...time.startTime)
+                            Text(timerInterval: Date.now...time.startTime, showsHours: false)
+                                .minimumScaleFactor(0.1)
                         }
                     }
                 }
@@ -83,7 +84,7 @@ extension LiveTrainsAttributes {
 extension LiveTrainsAttributes.ContentState {
     fileprivate static var tripTimes: LiveTrainsAttributes.ContentState {
         LiveTrainsAttributes.ContentState(times: [
-            TripTime(startTime: Date.now.addingTimeInterval(100), endTime: Date.now.addingTimeInterval(200)),
+            TripTime(startTime: Date.now.addingTimeInterval(10000), endTime: Date.now.addingTimeInterval(200)),
             TripTime(startTime: Date.now.addingTimeInterval(300), endTime: Date.now.addingTimeInterval(400)),
             TripTime(startTime: Date.now.addingTimeInterval(500), endTime: Date.now.addingTimeInterval(600)),
             ]

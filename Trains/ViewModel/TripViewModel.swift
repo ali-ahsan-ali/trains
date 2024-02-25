@@ -14,8 +14,7 @@ import ActivityKit
 final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
     let trip: Trip
     private(set) var tripError: String?
-    private(set) var tripResponse: TripRequestResponse?
-    private(set) var tripTimes: [TripTime]?
+    private(set) var tripTimes: [TripTime] = []
     
     
     @ObservationIgnored var currentActivity: Activity<LiveTrainsAttributes>? = nil
@@ -36,30 +35,18 @@ final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
             .sink { [weak self] _ in
                 guard let self, !self.isLoading else { return }
                 // In the 10 minutes before a train is to arrive, refresh the data and make sure that it is not coming early or cancelled
-                guard (self.tripResponse?.firstDepartureTimeEstimated ?? Date.distantPast).addingTimeInterval(-60 * 10) < Date.now else { return }
+                guard (self.tripTimes.first?.startTime ?? Date.distantPast).addingTimeInterval(-60 * 10) < Date.now else { return }
                 self.retrieveTrip()
-                guard let tripTimes else {
-                    Task {
-                        await self.currentActivity?.end(.none, dismissalPolicy: .immediate)
-                    }
-                    return
-                }
-                Task {
-                    await self.updateTrips(times: tripTimes)
-                }
             }
             .store(in: &cancellables)
     }
     
-    func setTripTimes(){
-        guard let journeys = tripResponse?.journeys else {
+    func setTripTimes(tripResponse: TripRequestResponse){
+        guard let journeys = tripResponse.journeys else {
             return
         }
-        tripTimes = []
-        journeys.forEach{ journey in
-            if let tripTime = journey.tripTime {
-                tripTimes?.append(tripTime)
-            }
+        tripTimes = journeys.compactMap { journey in
+            return journey.tripTime
         }
     }
     
@@ -68,18 +55,18 @@ final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
         self.isLoading = true
         Task {
             do {
-                self.tripResponse = try await self.retreiveTripDetails()
-                // If the first element is of a time that has past, get rid of it as it is not needed
+                var tripResponse = try await self.retreiveTripDetails()
+                // If the element is of a time that has past, get rid of it as it is not needed
                 // This is to safeguard against dogshit data
-                let journeys = Array(self.tripResponse?.journeys?.drop(while: { journey in
+                let journeys = Array(tripResponse.journeys?.drop(while: { journey in
                     journey.firstArrivalTimeEstimatedDate < Date.now
                 }) ?? [])
                 
-                self.tripResponse?.journeys = journeys
-                TrainLogger.stops.debug("Network Request made. Departure time: \(self.tripResponse?.firstDepartureTimeEstimatedString ?? "Cannot find departure :(")")
+                tripResponse.journeys = journeys
+                TrainLogger.stops.debug("Network Request made. Departure time: \(tripResponse.firstDepartureTimeEstimatedString )")
                 
-                self.setTripTimes()
-                TrainLogger.stops.debug("Setting triptimes. \(self.tripTimes?.debugDescription ?? "No trip times")")
+                self.setTripTimes(tripResponse: tripResponse)
+                TrainLogger.stops.debug("Setting triptimes. \(self.tripTimes.debugDescription )")
                 
                 self.tripError = ""
             } catch {

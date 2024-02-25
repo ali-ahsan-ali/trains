@@ -61,7 +61,7 @@ public final class Stop: Codable, FromCSVLine, Equatable, Hashable {
     }
     
     public var stopNameWithoutStation: String {
-        stopName.lowercased().replacingOccurrences(of: "Station", with: "").capitalized
+        stopName.lowercased().replacingOccurrences(of: "station", with: "").capitalized
     }
     
     private enum CodingKeys: String, CodingKey {

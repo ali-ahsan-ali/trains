@@ -16,8 +16,8 @@ struct TripView: View {
     }
     var body: some View {
         VStack{
-            if let tripTimes = viewModel.tripTimes {
-                List(tripTimes, id:\.self){ tripTimes in
+            if !viewModel.tripTimes.isEmpty {
+                List(viewModel.tripTimes, id:\.self){ tripTimes in
                     VStack{
                         HStack{
                             Text("Departure time: ")
@@ -28,9 +28,24 @@ struct TripView: View {
                             Text(tripTimes.endTime, style: .time)
                         }
                     }
-                }.onAppear{
-                    guard let tripTimes = viewModel.tripTimes, viewModel.trip.favourite == true else { return }
-                    viewModel.startLiveActivity(tripTimes: tripTimes)
+                }.onChange(of: viewModel.tripTimes, initial: true){ oldValue, newValue  in
+                    guard viewModel.trip.favourite == true else { return }
+                    /// If empty and activity started, close
+                    /// If not empty and no activity started, start activity
+                    /// If not empty and activity already started, update
+                    if newValue.isEmpty, viewModel.currentActivity != nil {
+                        Task {
+                            await viewModel.currentActivity?.end(.none, dismissalPolicy: .immediate)
+                        }
+                    } else if !newValue.isEmpty {
+                        if viewModel.currentActivity == nil {
+                            viewModel.startLiveActivity(tripTimes: newValue)
+                        } else {
+                            Task {
+                                await viewModel.updateTrips(times: newValue)
+                            }
+                        }
+                    }
                 }
             } else if let error = viewModel.tripError{
                 Text("\(error)")
