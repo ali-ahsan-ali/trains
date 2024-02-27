@@ -8,11 +8,10 @@
 import SwiftUI
 import SwiftData
 
-@MainActor
-let previewContainer: ModelContainer = {
+@MainActor let previewContainer: ModelContainer = {
     do {
-        let container = try ModelContainer (for: Trip.self, configurations: ModelConfiguration())
-        try StopManager.retreiveStations().values.forEach{ stops in
+        let container = try ModelContainer(for: Trip.self, configurations: ModelConfiguration())
+        try StopManager.retreiveStations().values.forEach { stops in
             for stop in stops {
                 container.mainContext.insert(Trip(startStop: stop, endStop: stop))
             }

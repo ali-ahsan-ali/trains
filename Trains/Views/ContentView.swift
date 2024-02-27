@@ -17,7 +17,8 @@ enum Destinations: Hashable {
 }
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
+    @Environment(\.modelContext) 
+    private var modelContext
     
     init() {
         Task { @MainActor in
@@ -34,14 +35,13 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            List{
+            List {
                 ForEach(trips) { trip in
-                    TimeProgressView(viewModel: ProgressBarViewModel(tripTime: Date.now.addingTimeInterval(100)...Date.now.addingTimeInterval(1000)))
                     NavigationLink(value: Destinations.tripView(trip: trip)) {
                         tripRow(trip: trip)
                     }
                 }
-                .onDelete{ indexSet in
+                .onDelete { indexSet in
                     for index in indexSet.reversed() {
                         deleteTrip(trips[index])
                     }
@@ -60,7 +60,7 @@ struct ContentView: View {
             .navigationDestination(for: Destinations.self) { destination in
                 switch destination {
                 case .stationSelector(station: let stop):
-                    StationSelector(viewModel: stationViewModel, path:$path , startingStop: stop)
+                    StationSelector(viewModel: stationViewModel, path: $path, startingStop: stop)
                 case .tripView(trip: let trip):
                     TripView(trip: trip)
                 case .individualTripView:
@@ -92,7 +92,7 @@ struct ContentView: View {
     
     @ViewBuilder
     func tripRow(trip: Trip) -> some View {
-        HStack{
+        HStack {
             Text("\(trip.startStop.stopName.replacingOccurrences(of: "Station", with: ""))")
                 .font(.title2)
             Spacer()

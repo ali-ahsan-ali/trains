@@ -14,7 +14,7 @@ protocol FromCSVLine {
 class StreamReader {
     let encoding: String.Encoding
     let chunkSize: Int
-    var fileHandle: FileHandle! //swiftlint:disable:this implicitly_unwrapped_optional
+    var fileHandle: FileHandle! //swiftlint:disable:this implicitly_unwrapped_optional comment_spacing
     let delimData: Data
     var buffer: Data
     var atEof: Bool

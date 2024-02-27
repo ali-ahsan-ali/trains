@@ -11,24 +11,24 @@ import LiveTrainsExtension
 
 struct TripView: View {
     let viewModel: TripViewModel
-    init (trip: Trip){
+    init (trip: Trip) {
         viewModel = TripViewModel(trip: trip)
     }
     var body: some View {
-        VStack{
+        VStack {
             if !viewModel.tripTimes.isEmpty {
-                List(viewModel.tripTimes, id:\.self){ tripTimes in
-                    VStack{
-                        HStack{
+                List(viewModel.tripTimes, id: \.self) { tripTimes in
+                    VStack {
+                        HStack {
                             Text("Departure time: ")
                             Text(tripTimes.startTime, style: .time)
                         }
-                        HStack{
+                        HStack {
                             Text("Arrival time: ")
                             Text(tripTimes.endTime, style: .time)
                         }
                     }
-                }.onChange(of: viewModel.tripTimes, initial: true){ oldValue, newValue  in
+                }.onChange(of: viewModel.tripTimes, initial: true) { _, newValue  in
                     guard viewModel.trip.favourite == true else { return }
                     /// If empty and activity started, close
                     /// If not empty and no activity started, start activity
@@ -47,11 +47,11 @@ struct TripView: View {
                         }
                     }
                 }
-            } else if let error = viewModel.tripError{
+            } else if let error = viewModel.tripError {
                 Text("\(error)")
             } else {
                 VStack {
-                    List(0...10, id:\.self){_ in
+                    List(0...10, id: \.self) { _ in
                         Shimmer()
                             .frame(height: 40)
                     }
@@ -63,4 +63,3 @@ struct TripView: View {
         .navigationTitle("\(viewModel.trip.startStop.stopName) -> \(viewModel.trip.endStop.stopName)")
     }
 }
-

@@ -9,8 +9,6 @@ import ActivityKit
 import WidgetKit
 import SwiftUI
 
-
-
 struct LiveTrainsLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveTrainsAttributes.self) { context in
@@ -34,14 +32,14 @@ struct LiveTrainsLiveActivity: Widget {
                         .padding(.trailing, 6)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    ForEach(context.state.times.prefix(3), id: \.self){ time in
-                        Text(time.startTime, style:.time)
-                        Text(time.endTime, style:.time)
+                    ForEach(context.state.times.prefix(3), id: \.self) { time in
+                        Text(time.startTime, style: .time)
+                        Text(time.endTime, style: .time)
                     }
                     // more content
                 }
             } compactLeading: {
-                HStack{
+                HStack {
                     Image(systemName: "train.side.front.car")
                         .resizable()
                         .frame(width: 30)
@@ -50,8 +48,8 @@ struct LiveTrainsLiveActivity: Widget {
                     Text(context.attributes.endStopName.prefix(1))
                 }
             } compactTrailing: {
-                HStack{
-                    ForEach(context.state.times.prefix(2), id: \.self){ time in
+                HStack {
+                    ForEach(context.state.times.prefix(2), id: \.self) { time in
                         let closedDateRange = (Date.now...time.startTime)
                         if closedDateRange.isEmpty {
                             Text("Now")
@@ -86,7 +84,7 @@ extension LiveTrainsAttributes.ContentState {
         LiveTrainsAttributes.ContentState(times: [
             TripTime(startTime: Date.now.addingTimeInterval(10000), endTime: Date.now.addingTimeInterval(200)),
             TripTime(startTime: Date.now.addingTimeInterval(300), endTime: Date.now.addingTimeInterval(400)),
-            TripTime(startTime: Date.now.addingTimeInterval(500), endTime: Date.now.addingTimeInterval(600)),
+            TripTime(startTime: Date.now.addingTimeInterval(500), endTime: Date.now.addingTimeInterval(600))
             ]
         )
      }

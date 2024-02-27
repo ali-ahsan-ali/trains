@@ -10,7 +10,7 @@ import SwiftData
 
 @main
 struct TrainsApp: App {
-    public let container: ModelContainer = {
+    let container: ModelContainer = {
         do {
             return try ModelContainer(for: Trip.self, Stop.self, configurations: ModelConfiguration())
         } catch {

@@ -15,9 +15,11 @@ extension TripViewModel {
         guard currentActivity == nil else { return }
         if ActivityAuthorizationInfo().areActivitiesEnabled {
             do {
-                let liveTrain = LiveTrainsAttributes(startStopName: trip.startStop.stopNameWithoutStation, endStopName: trip.endStop.stopNameWithoutStation)
+                let liveTrain = LiveTrainsAttributes(
+                    startStopName: trip.startStop.stopNameWithoutStation,
+                    endStopName: trip.endStop.stopNameWithoutStation
+                )
                 let initialState = LiveTrainsAttributes.ContentState(times: tripTimes)
-                
                 self.currentActivity = try Activity.request(
                     attributes: liveTrain,
                     content: .init(state: initialState, staleDate: tripTimes.first?.startTime ?? nil),
@@ -29,22 +31,20 @@ extension TripViewModel {
             }
         }
     }
-    
+
     func observeFrequentUpdate() {
         Task {
-            for await isEnabled in ActivityAuthorizationInfo().frequentPushEnablementUpdates {
+            for await _ in ActivityAuthorizationInfo().frequentPushEnablementUpdates {
                 Logger().debug("Frequent")
             }
         }
     }
-    
+
     func updateTrips(times: [TripTime]) async {
         guard let activity = currentActivity else {
             return
         }
-        
         let contentState = LiveTrainsAttributes.ContentState(times: times)
-        
         await activity.update(
             ActivityContent<LiveTrainsAttributes.ContentState>(
                 state: contentState,
@@ -54,22 +54,22 @@ extension TripViewModel {
             alertConfiguration: nil
         )
     }
-    
+
     func observeActivityUpdates(_ activity: Activity<LiveTrainsAttributes>) {
         // Observe updates for ongoing Live Activities.
         Task {
             await withTaskGroup(of: Void.self) { group in
                 group.addTask { @MainActor in
-                    for await content in activity.contentUpdates {
+                    for await _ in activity.contentUpdates {
                         Logger().debug("Normal")
-//                        self.updateAdventure(content: content)
+    //                        self.updateAdventure(content: content)
                         return
                     }
                 }
             }
         }
     }
-    
+
     func cleanUp() {
         currentActivity = nil
     }

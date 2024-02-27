@@ -156,15 +156,11 @@ public enum WheelchairAccessible: Int, Codable {
         if let string = string {
             if let int = Int(string) {
                 return WheelchairAccessible(rawValue: int) ?? .noInformation
-                
             } else {
                 return .noInformation
             }
-            
         } else {
             return nil
         }
     }
 }
-
-

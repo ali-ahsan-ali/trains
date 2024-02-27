@@ -16,11 +16,11 @@ final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
     private(set) var tripError: String?
     private(set) var tripTimes: [TripTime] = []
     
-    
-    @ObservationIgnored var currentActivity: Activity<LiveTrainsAttributes>? = nil
-    @ObservationIgnored private var cancellables = [AnyCancellable]()
+    @ObservationIgnored var currentActivity: Activity<LiveTrainsAttributes>?
+    @ObservationIgnored private var cancellables: [AnyCancellable] = []
     @ObservationIgnored private var isLoading = false
-    var id: ObjectIdentifier{
+    
+    var id: ObjectIdentifier {
         trip.id
     }
 
@@ -41,7 +41,7 @@ final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
             .store(in: &cancellables)
     }
     
-    func setTripTimes(tripResponse: TripRequestResponse){
+    func setTripTimes(tripResponse: TripRequestResponse) {
         guard let journeys = tripResponse.journeys else {
             return
         }
@@ -49,7 +49,6 @@ final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
             return journey.tripTime
         }
     }
-    
     
     func retrieveTrip() {
         self.isLoading = true

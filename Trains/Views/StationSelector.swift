@@ -9,7 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct StationSelector: View {
-    @Environment(\.modelContext) private var modelContext
+    @Environment(\.modelContext) 
+    private var modelContext
+    
     @Query var allTrips: [Trip]
     
     var viewModel: StationListViewModel
@@ -65,7 +67,7 @@ struct StationSelector: View {
                                     path.append(Destinations.stationSelector(station: station))
                                 }
                             } label: {
-                                HStack{
+                                HStack {
                                     Text(station.stopName)
                                     Spacer()
                                     Image(systemName: "chevron.right")
@@ -85,7 +87,7 @@ struct StationSelector: View {
 #Preview {
     @State var path = NavigationPath()
     path.append(Destinations.stationSelector(station: nil))
-    return NavigationStack{
+    return NavigationStack {
         StationSelector(viewModel: StationListViewModel(), path: $path)
             .modelContainer(previewContainer)
     }

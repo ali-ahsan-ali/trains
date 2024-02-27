@@ -19,7 +19,6 @@ struct TripRequestResponse: Codable {
     var firstDepartureTimeEstimatedString: String {
         ISO8601DateFormatter().string(from: firstDepartureTimeEstimated)
     }
-    
 }
 
 struct ApiErrorResponse: Codable {
@@ -105,7 +104,6 @@ struct TripTransportation: Codable, Hashable {
         default: "Other"
         }
     }
-    
 }
 
 struct TripRequestResponseJourneyLegStop: Codable, Hashable {
@@ -122,7 +120,7 @@ struct TripRequestResponseJourneyLegStop: Codable, Hashable {
     }
     
     var arrivalTimeEstimatedDate: Date {
-        ISO8601DateFormatter().date(from: arrivalTimeEstimated ?? "")  ?? Date.distantPast
+        ISO8601DateFormatter().date(from: arrivalTimeEstimated ?? "") ?? Date.distantPast
     }
 }
 

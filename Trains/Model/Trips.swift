@@ -8,15 +8,15 @@
 import Foundation
 import SwiftData
 
-
 @Model
 final class Trip: Equatable, Hashable, Sendable {
-    @Attribute(.unique) var id: String
+    @Attribute(.unique) 
+    let id: String
+    
     var startStop: Stop
     var endStop: Stop
     var created: Date
     var favourite: Bool
-    
     
     init(startStop: Stop, endStop: Stop, favourite: Bool = false) {
         self.startStop = startStop
