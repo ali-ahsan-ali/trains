@@ -33,67 +33,75 @@ struct TrainProgressViewStyle: ProgressViewStyle {
                             .overlay(alignment: .topLeading) {
                                 animatingTrain(geometry: geometry)
                             }
-                            .frame(height: 40)
+                            .frame(height: 16)
                             .onChange(of: viewModel.progress) { _, _ in
                                 let widthAvailableToTrains = max((getGeometryWidth(geometry: geometry) * viewModel.progress) - viewModel.imageViewSize.width, 0)
                                 let numberOfTrainsThatCanFitInWidth = widthAvailableToTrains / (viewModel.imageViewSize.width + 4)
                                 viewModel.numberOfTrains = Int(numberOfTrainsThatCanFitInWidth.rounded(.down))
                             }
                     }
-                    
-                    if viewModel.progressWhenWithin1Minutes != nil {
-                        let oneMinBoundary = viewModel.oneMinuteTextOffset(widthOfView: getGeometryWidth(geometry: geometry), widthOfText: oneMinuteSize.width)
-                        
-                        // If there is overlap between the two views
-                        if viewModel.tenMinuteTextOffset(widthOfView: getGeometryWidth(geometry: geometry), widthOfText: tenMinuteSize.width) + tenMinuteSize.width >= oneMinBoundary {
-                            EmptyView()
-                        } else {
-                            Text("1 Min")
-                                .font(.caption)
-                                .background(
-                                    GeometryReader { geometry in
-                                        Color.clear.onAppear { oneMinuteSize = geometry.size }
-                                    }
-                                )
-                                .offset(
-                                    x: viewModel.oneMinuteTextOffset(widthOfView: getGeometryWidth(geometry: geometry), widthOfText: tenMinuteSize.width)
-                                )
-                                .padding(.bottom, 55)
-                                .multilineTextAlignment(.center)
-                            
-                            DottedLine()
-                                .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
-                                .frame(width: 1, height: 50)
-                                .offset(
-                                    x: viewModel.oneMinuteBarOffset(widthOfView: getGeometryWidth(geometry: geometry))
-                                )
-                        }
-                    }
-                    
-                    if viewModel.progressWhenWithin10Minutes != nil {
-                        Text("10 Min")
-                            .font(.caption)
-                            .background(
-                                GeometryReader { geometry in
-                                    Color.clear.onAppear { tenMinuteSize = geometry.size }
-                                }
-                            )
-                            .offset(
-                                x: viewModel.tenMinuteTextOffset(widthOfView: getGeometryWidth(geometry: geometry), widthOfText: tenMinuteSize.width)
-                            )
-                            .padding(.bottom, 55)
-                        DottedLine()
-                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
-                            .frame(width: 1, height: 50)
-                            .offset(
-                                x: viewModel.tenMinuteBarOffset(widthOfView: getGeometryWidth(geometry: geometry))
-                            )
+                    switch viewModel.overlapCase(widthOfView: getGeometryWidth(geometry: geometry), widthOfOneMinText: oneMinuteSize.width, widthOfTenMinText: tenMinuteSize.width) {
+                    case .both:
+                        tenMinuteView(geometry: geometry)
+                        oneMinuteView(geometry: geometry)
+                    case.one:
+                        oneMinuteView(geometry: geometry)
+                    case .ten:
+                        tenMinuteView(geometry: geometry)
+                    case .none: EmptyView()
                     }
                 }
             }
-            .frame(height: 55 + max(tenMinuteSize.height, oneMinuteSize.height), alignment: .center)
+            .frame(height: 16 + max(tenMinuteSize.height, oneMinuteSize.height), alignment: .center)
         } else {
             EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    func tenMinuteView(geometry: GeometryProxy) -> some View {
+        ZStack(alignment: .bottomLeading) {
+            Text("10 Min")
+                .font(.caption)
+                .background(
+                    GeometryReader { geometry in
+                        Color.clear.onAppear { tenMinuteSize = geometry.size }
+                    }
+                )
+                .offset(
+                    x: viewModel.tenMinuteTextOffset(widthOfView: getGeometryWidth(geometry: geometry), widthOfText: tenMinuteSize.width)
+                )
+                .padding(.bottom, 17)
+            DottedLine()
+                .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
+                .frame(width: 1, height: 17)
+                .offset(
+                    x: viewModel.tenMinuteBarOffset(widthOfView: getGeometryWidth(geometry: geometry))
+                )
+        }
+    }
+    
+    @ViewBuilder
+    func oneMinuteView(geometry: GeometryProxy) -> some View {
+        ZStack(alignment: .bottomLeading) {
+            Text("1 Min")
+                .font(.caption)
+                .background(
+                    GeometryReader { geometry in
+                        Color.clear.onAppear { oneMinuteSize = geometry.size }
+                    }
+                )
+                .offset(
+                    x: viewModel.oneMinuteTextOffset(widthOfView: getGeometryWidth(geometry: geometry), widthOfText: oneMinuteSize.width)
+                )
+                .padding(.bottom, 17)
+            
+            DottedLine()
+                .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
+                .frame(width: 1, height: 17)
+                .offset(
+                    x: viewModel.oneMinuteBarOffset(widthOfView: getGeometryWidth(geometry: geometry))
+                )
         }
     }
     
@@ -133,14 +141,14 @@ struct TrainProgressViewStyle: ProgressViewStyle {
             }
         }
         .offset(
-            x: widthAvailableToTrains - (CGFloat(viewModel.numberOfTrains) * (viewModel.imageViewSize.width + 4)),
-            y: viewModel.imageViewSize.height / 2
+            x: widthAvailableToTrains - (CGFloat(viewModel.numberOfTrains) * (viewModel.imageViewSize.width + 4))
         )
+        .padding(.top, viewModel.imageViewSize.height / 2)
     }
 }
 
 #Preview {
     TimeProgressView(
-        viewModel: ProgressBarViewModel(arrivalTime: Date.now.addingTimeInterval(20))
+        viewModel: ProgressBarViewModel(arrivalTime: Date.now.addingTimeInterval(35))
     )
 }

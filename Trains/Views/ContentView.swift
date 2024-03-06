@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 import ActivityKit
-import LiveTrainsExtension
+//import LiveTrainsExtension
 
 enum Destinations: Hashable {
     case stationSelector(station: Stop?)

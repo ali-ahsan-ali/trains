@@ -12,6 +12,7 @@ import SwiftData
 public final class Stop: Codable, FromCSVLine, Equatable, Hashable {
   
     public var stopId: String
+    public var gtfsId: String
     public var stopCode: String?
     public var stopName: String
     public var stopDesc: String?
@@ -28,6 +29,7 @@ public final class Stop: Codable, FromCSVLine, Equatable, Hashable {
     
     public init(line: CSVLine) {
         stopId = line["stop_id"]! // swiftlint:disable:this force_unwrapping
+        gtfsId = line["stop_id"]! // swiftlint:disable:this force_unwrapping
         stopCode = line["stop_code"]
         stopName = line["stop_name"] ?? "No Stop Name :("
         stopDesc = line["stop_desc"]
@@ -43,8 +45,9 @@ public final class Stop: Codable, FromCSVLine, Equatable, Hashable {
         platformCode = line["platform_code"]
     }
     
-    public init(stopId: String, stopCode: String? = nil, stopName: String, stopDesc: String? = nil, stopLat: Double? = nil, stopLon: Double? = nil, zoneId: String? = nil, stopUrl: String? = nil, locationType: LocationType? = nil, parentStation: String? = nil, stopTimezone: String? = nil, wheelchairBoarding: WheelchairAccessible? = nil, levelId: String? = nil, platformCode: String? = nil) {
+    public init(stopId: String, gtfsId: String, stopCode: String? = nil, stopName: String, stopDesc: String? = nil, stopLat: Double? = nil, stopLon: Double? = nil, zoneId: String? = nil, stopUrl: String? = nil, locationType: LocationType? = nil, parentStation: String? = nil, stopTimezone: String? = nil, wheelchairBoarding: WheelchairAccessible? = nil, levelId: String? = nil, platformCode: String? = nil) {
         self.stopId = stopId
+        self.gtfsId = gtfsId
         self.stopCode = stopCode
         self.stopName = stopName
         self.stopDesc = stopDesc
@@ -66,6 +69,7 @@ public final class Stop: Codable, FromCSVLine, Equatable, Hashable {
     
     private enum CodingKeys: String, CodingKey {
         case id
+        case gtfsId
         case stopId
         case stopCode
         case stopName
@@ -85,6 +89,7 @@ public final class Stop: Codable, FromCSVLine, Equatable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(stopId, forKey: .stopId)
+        try container.encode(gtfsId, forKey: .gtfsId)
         try container.encode(stopCode, forKey: .stopCode)
         try container.encode(stopName, forKey: .stopName)
         try container.encode(stopDesc, forKey: .stopDesc)
@@ -103,6 +108,7 @@ public final class Stop: Codable, FromCSVLine, Equatable, Hashable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         stopId = try values.decode(String.self, forKey: .stopId)
+        gtfsId = try values.decode(String.self, forKey: .gtfsId)
         stopCode = try values.decodeIfPresent(String.self, forKey: .stopCode)
         stopName = try values.decode(String.self, forKey: .stopName)
         stopDesc = try values.decodeIfPresent(String.self, forKey: .stopDesc)

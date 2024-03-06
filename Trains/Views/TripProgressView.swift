@@ -21,19 +21,14 @@ struct TripProgressView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TrainProgressLegend()
-            VStack(alignment: .center, spacing: 0) {
-                ForEach(viewModels, id: \.self) { viewModel in
-                    HStack {
-                        Text("Arriving at \(tripAttributes.startStopName) in:")
-                            .font(.caption)
-                        Text(timerInterval: viewModel.tripTime)
-                            .font(.caption)
-                    }.border(.red)
-                    TimeProgressView(viewModel: viewModel).border(.blue)
+            ForEach(viewModels, id: \.self) { viewModel in
+                HStack(alignment: .bottom) {
+                    TimeProgressView(viewModel: viewModel)
+                    Text(timerInterval: viewModel.tripTime)
+                        .font(.caption)
+                        .frame(width: 35)
                 }
             }
-            .padding()
         }
     }
 }
@@ -46,15 +41,15 @@ struct TripProgressView: View {
         tripTimes: LiveTrainsAttributes.ContentState(
             times: [
                 TripTime(
-                    startTime: Date.now.addingTimeInterval(18),
+                    startTime: Date.now.addingTimeInterval(500),
                     endTime: Date.now.addingTimeInterval(16)
                 ),
                 TripTime(
-                    startTime: Date.now.addingTimeInterval(31),
+                    startTime: Date.now.addingTimeInterval(900),
                     endTime: Date.now.addingTimeInterval(30)
                 ),
                 TripTime(
-                    startTime: Date.now.addingTimeInterval(50),
+                    startTime: Date.now.addingTimeInterval(800),
                     endTime: Date.now.addingTimeInterval(1412)
                 )
             ]

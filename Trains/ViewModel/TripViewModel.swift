@@ -9,6 +9,8 @@ import SwiftUI
 import Alamofire
 import Combine
 import ActivityKit
+import Apollo
+import ApolloAPI
 
 @Observable
 final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
@@ -17,85 +19,44 @@ final class TripViewModel: Equatable, Hashable, Sendable, Identifiable {
     private(set) var tripTimes: [TripTime] = []
     
     @ObservationIgnored var currentActivity: Activity<LiveTrainsAttributes>?
+    @ObservationIgnored private var isLoading = true
     @ObservationIgnored private var cancellables: [AnyCancellable] = []
-    @ObservationIgnored private var isLoading = false
-    
+
     var id: ObjectIdentifier {
         trip.id
     }
-
+    
     init(trip: Trip) {
         self.trip = trip
         guard trip.id != "11" else { return }
+        let query = PlanQuery(fromPlace: GraphQLNullable(stringLiteral: "\(trip.startStop.stopName)::\(trip.startStop.gtfsId)"), toPlace: GraphQLNullable(stringLiteral: "\(trip.endStop.stopName)::\(trip.endStop.gtfsId)"), numItineraries: GraphQLNullable(integerLiteral: 10), searchWindow: GraphQLNullable(stringLiteral: "3600"))
         
-        retrieveTrip()
-        
-        Timer.publish(every: 30, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] _ in
-                guard let self, !self.isLoading else { return }
-                // In the 10 minutes before a train is to arrive, refresh the data and make sure that it is not coming early or cancelled
-                guard (self.tripTimes.first?.startTime ?? Date.distantPast).addingTimeInterval(-60 * 10) < Date.now else { return }
-                self.retrieveTrip()
+        let watcher = Network.apolloClient.watch(query: query, cachePolicy: .returnCacheDataAndFetch) { [weak self] result in
+            guard let self else { return }
+            guard let itineraries = try? result.get().data?.plan?.itineraries, !itineraries.isEmpty else {
+                if self.tripTimes.last?.startTime ?? Date.distantPast < Date.now {
+                    self.tripError = "Failure to retrieve"
+                } else {
+                    // Some random error but we have some data to work with, lets use it for now
+                }
+                return
             }
-            .store(in: &cancellables)
-    }
-    
-    func setTripTimes(tripResponse: TripRequestResponse) {
-        guard let journeys = tripResponse.journeys else {
-            return
-        }
-        tripTimes = journeys.compactMap { journey in
-            return journey.tripTime
-        }
-    }
-    
-    func retrieveTrip() {
-        self.isLoading = true
-        Task {
-            do {
-                var tripResponse = try await self.retreiveTripDetails()
-                // If the element is of a time that has past, get rid of it as it is not needed
-                // This is to safeguard against dogshit data
-                let journeys = Array(tripResponse.journeys?.drop(while: { journey in
-                    journey.firstArrivalTimeEstimatedDate < Date.now
-                }) ?? [])
-                
-                tripResponse.journeys = journeys
-                TrainLogger.stops.debug("Network Request made. Departure time: \(tripResponse.firstDepartureTimeEstimatedString )")
-                
-                self.setTripTimes(tripResponse: tripResponse)
-                TrainLogger.stops.debug("Setting triptimes. \(self.tripTimes.debugDescription )")
-                
-                self.tripError = ""
-            } catch {
-                self.tripError = "Error: \(error)"
+            self.tripTimes = itineraries.compactMap { (itinerary: PlanQuery.Data.Plan.Itinerary?) -> TripTime? in
+                guard let itinerary else { return nil }
+                let startTime = Double.from(itinerary.startTime) ?? 0
+                let endTime = Double.from(itinerary.endTime) ?? 0
+                return TripTime(startTime: Date(timeIntervalSince1970: TimeInterval(startTime / 1000)), endTime: Date(timeIntervalSince1970: TimeInterval(endTime / 1000)))
             }
             self.isLoading = false
         }
-    }
-
-    func retreiveTripDetails() async throws -> TripRequestResponse {
-        let urlRequest = try TripPlannerManager.shared.getTripURLRequest(originStopId: trip.startStop.stopId, destinationStopId: trip.endStop.stopId)
-        return try await withCheckedThrowingContinuation { continuation in
-            AF.request(urlRequest).validate().responseDecodable(of: TripRequestResponse.self) { response in
-                switch response.result {
-                case .success(let data):
-                    if data.error != nil {
-                        TrainLogger.network.error("data error")
-                        continuation.resume(with: .failure(Errors.dataError))
-                    } else if data.journeys == nil {
-                        TrainLogger.network.error("no journeys")
-                        continuation.resume(with: .failure(Errors.noJourney))
-                    } else {
-                        continuation.resume(with: .success(data))
-                    }
-                case .failure(let error):
-                    TrainLogger.network.debug("\(error)")
-                    continuation.resume(with: .failure(error))
-                }
+        
+        Timer.publish(every: 60, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                guard let self else { return }
+                watcher.refetch(cachePolicy: .returnCacheDataAndFetch)
             }
-        }
+            .store(in: &cancellables)
     }
     
     static func == (lhs: TripViewModel, rhs: TripViewModel) -> Bool {

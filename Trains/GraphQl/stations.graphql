@@ -1,0 +1,2 @@
+query Stations {  stations {    id    name    gtfsId  }}
+

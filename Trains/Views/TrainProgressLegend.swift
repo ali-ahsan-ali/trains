@@ -11,66 +11,34 @@ struct TrainProgressLegend: View {
     @State private var legendSize: CGSize = .zero
     
     var body: some View {
-        HStack(alignment: .center, spacing: 8) {
+        HStack(spacing: 8) {
             HStack {
                 Rectangle()
-                    .frame(width: legendSize.height, height: legendSize.height)
+                    .frame(width: 10, height: 10)
                     .foregroundStyle(.green)
-                Text("10+ minutes")
+                Text("10+")
                     .font(.caption)
-                    .background( 
-                        GeometryReader { geo in
-                            Color.clear
-                                .onAppear {
-                                    legendSize = geo.size
-                                }
-                        }
-                    )
             }
             HStack {
                 Rectangle()
-                    .frame(width: legendSize.height, height: legendSize.height)
+                    .frame(width: 10, height: 10)
                     .foregroundStyle(Color(hex: "#67B7D1"))
-                Text("10 minutes")
+                Text("10>")
                     .font(.caption)
-                    .background(
-                        GeometryReader { geo in
-                            Color.clear
-                                .onAppear {
-                                    legendSize = geo.size
-                                }
-                        }
-                    )
             }
             HStack {
                 Rectangle()
-                    .frame(width: legendSize.height, height: legendSize.height)
+                    .frame(width: 10, height: 10)
                     .foregroundStyle(.orange)
-                Text("1 minute")
+                Text("1>")
                     .font(.caption)
-                    .background(
-                        GeometryReader { geo in
-                            Color.clear
-                                .onAppear {
-                                    legendSize = geo.size
-                                }
-                        }
-                    )
             }
             HStack {
                 Rectangle()
-                    .frame(width: legendSize.height, height: legendSize.height)
+                    .frame(width: 10, height: 10)
                     .foregroundStyle(.red)
-                Text("Departed")
+                Text("Now")
                     .font(.caption)
-                    .background(
-                        GeometryReader { geo in
-                            Color.clear
-                                .onAppear {
-                                    legendSize = geo.size
-                                }
-                        }
-                    )
             }
         }
     }

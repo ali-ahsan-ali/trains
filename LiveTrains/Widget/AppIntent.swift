@@ -1,18 +1,18 @@
+////
+////  AppIntent.swift
+////  LiveTrains
+////
+////  Created by Ali Ali on 14/2/2024.
+////
 //
-//  AppIntent.swift
-//  LiveTrains
+//import WidgetKit
+//import AppIntents
 //
-//  Created by Ali Ali on 14/2/2024.
+//struct ConfigurationAppIntent: WidgetConfigurationIntent {
+//    static var title: LocalizedStringResource = "Configuration"
+//    static var description = IntentDescription("This is an example widget.")
 //
-
-import WidgetKit
-import AppIntents
-
-struct ConfigurationAppIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "Configuration"
-    static var description = IntentDescription("This is an example widget.")
-
-    // An example configurable parameter.
-    @Parameter(title: "Favorite Emoji", default: "😃")
-    var favoriteEmoji: String
-}
+//    // An example configurable parameter.
+//    @Parameter(title: "Favorite Emoji", default: "😃")
+//    var favoriteEmoji: String
+//}

@@ -33,11 +33,11 @@ class ProgressBarViewModel: Hashable {
             in: .common
         )
         .autoconnect()
-        .sink { [weak self] date in
+        .sink { [weak self] _ in
             guard let self, self.currentTime < self.lowerTime else {
                 return
             }
-            self.currentTime = date.timeIntervalSinceReferenceDate
+            self.currentTime += 0.001
         }
         .store(in: &cancellable )
     }
@@ -53,7 +53,7 @@ class ProgressBarViewModel: Hashable {
     var start: CGPoint = .zero
     var end: CGPoint = .zero
 
-    let imageViewSize: CGSize = .init(width: 20, height: 20)
+    let imageViewSize: CGSize = .init(width: 8, height: 8)
 
     @ObservationIgnored var cancellable = Set<AnyCancellable>()
     
@@ -66,23 +66,19 @@ class ProgressBarViewModel: Hashable {
     }
     
     var within10Minute: Bool {
-        lowerTime - currentTime <= 15
+        lowerTime - currentTime <= 600
     }
     
     var within1Minute: Bool {
-        lowerTime - currentTime <= 5
+        lowerTime - currentTime <= 60
     }
 
-    var progressWhenWithin1Minutes: Double? {
-        let roundedValue = Double(round(100 * ((totalTime - 5) / totalTime)) / 100)
-        if roundedValue <= 0.01 { return nil }
-        return (totalTime - 5) / totalTime
+    var progressWhenWithin1Minutes: Double {
+        return (totalTime - 60) / totalTime
     }
     
-    var progressWhenWithin10Minutes: Double? {
-        let roundedValue = Double(round(100 * ((totalTime - 15) / totalTime)) / 100)
-        if roundedValue <= 0.01 { return nil }
-        return (totalTime - 15) / totalTime
+    var progressWhenWithin10Minutes: Double {
+        return (totalTime - 600) / totalTime
     }
     
     var color: Color {
@@ -98,22 +94,51 @@ class ProgressBarViewModel: Hashable {
     }
     
     func oneMinuteBarOffset(widthOfView: CGFloat) -> CGFloat {
-        guard let progressWhenWithin1Minutes else { return .infinity }
-        return min(CGFloat(progressWhenWithin1Minutes) * widthOfView + 2, widthOfView)
+        return max(min(CGFloat(progressWhenWithin1Minutes) * widthOfView + 2, widthOfView), 0)
     }
     
     func tenMinuteBarOffset(widthOfView: CGFloat) -> CGFloat {
-        guard let progressWhenWithin10Minutes else { return .infinity }
-        return min(CGFloat(progressWhenWithin10Minutes) * widthOfView + 2, widthOfView)
+        return max(min(CGFloat(progressWhenWithin10Minutes) * widthOfView + 2, widthOfView), 0)
     }
     
     func oneMinuteTextOffset(widthOfView: CGFloat, widthOfText: CGFloat) -> CGFloat {
-        guard let progressWhenWithin1Minutes else { return .infinity }
-        return min(CGFloat(progressWhenWithin1Minutes) * widthOfView - (widthOfText / 2), widthOfView - widthOfText)
+        return max(min(CGFloat(progressWhenWithin1Minutes) * widthOfView - (widthOfText / 2), widthOfView - widthOfText), 0)
     }
     
     func tenMinuteTextOffset(widthOfView: CGFloat, widthOfText: CGFloat) -> CGFloat {
-        guard let progressWhenWithin10Minutes else { return .infinity }
-        return min(CGFloat(progressWhenWithin10Minutes) * widthOfView - (widthOfText / 2), widthOfView - widthOfText)
+        return max(min(CGFloat(progressWhenWithin10Minutes) * widthOfView - (widthOfText / 2), widthOfView - widthOfText), 0)
     }
+        
+    func overlapCase(widthOfView: CGFloat, widthOfOneMinText: CGFloat, widthOfTenMinText: CGFloat) -> ShowText {
+        if tenMinuteTextOffset(widthOfView: widthOfView, widthOfText: widthOfOneMinText) == 0 && oneMinuteTextOffset(widthOfView: widthOfView, widthOfText: widthOfTenMinText) == 0 {
+            if progressWhenWithin1Minutes < 0 && progressWhenWithin10Minutes < 0 {
+                return .none
+            } else {
+                return .one
+            }
+        } else if tenMinuteTextOffset(widthOfView: widthOfView, widthOfText: widthOfOneMinText) + widthOfOneMinText > oneMinuteTextOffset(widthOfView: widthOfView, widthOfText: widthOfTenMinText) {
+            if progressWhenWithin1Minutes.rounded(.down) == 0 {
+                return .ten
+            } else {
+                return .one
+            }
+        } else {
+            if progressWhenWithin1Minutes < 0 && progressWhenWithin10Minutes < 0 {
+                return .none
+            } else if progressWhenWithin1Minutes < 0 {
+                return .ten
+            } else if progressWhenWithin10Minutes < 0 {
+                return .one
+            } else {
+                return .both
+            }
+        }
+    }
+}
+
+enum ShowText {
+    case both
+    case one
+    case ten
+    case none
 }

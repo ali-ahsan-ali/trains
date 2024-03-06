@@ -7,13 +7,14 @@
 
 import SwiftUI
 import ActivityKit
-import LiveTrainsExtension
+//import LiveTrainsExtension
 
 struct TripView: View {
     let viewModel: TripViewModel
     init (trip: Trip) {
         viewModel = TripViewModel(trip: trip)
     }
+    
     var body: some View {
         VStack {
             if !viewModel.tripTimes.isEmpty {
@@ -28,25 +29,27 @@ struct TripView: View {
                             Text(tripTimes.endTime, style: .time)
                         }
                     }
-                }.onChange(of: viewModel.tripTimes, initial: true) { _, newValue  in
-                    guard viewModel.trip.favourite == true else { return }
-                    /// If empty and activity started, close
-                    /// If not empty and no activity started, start activity
-                    /// If not empty and activity already started, update
-                    if newValue.isEmpty, viewModel.currentActivity != nil {
-                        Task {
-                            await viewModel.currentActivity?.end(.none, dismissalPolicy: .immediate)
-                        }
-                    } else if !newValue.isEmpty {
-                        if viewModel.currentActivity == nil {
-                            viewModel.startLiveActivity(tripTimes: newValue)
-                        } else {
-                            Task {
-                                await viewModel.updateTrips(times: newValue)
-                            }
-                        }
-                    }
                 }
+//                .onChange(of: viewModel.tripTimes, initial: true) { _, newValue  in
+//                    guard viewModel.trip.favourite else { return }
+//                    /// If empty and activity started, close
+//                    /// If not empty and no activity started, start activity
+//                    /// If not empty and activity already started, update
+//                    
+//                    if newValue.isEmpty, FavouriteTripViewManager.shared.viewModel?.currentActivity != nil {
+//                        Task {
+//                            await viewModel.currentActivity?.end(.none, dismissalPolicy: .immediate)
+//                        }
+//                    } else if !newValue.isEmpty {
+//                        if FavouriteTripViewManager.shared.viewModel?.currentActivity == nil {
+//                            FavouriteTripViewManager.shared.viewModel?.startLiveActivity(tripTimes: newValue)
+//                        } else {
+//                            Task {
+//                                await FavouriteTripViewManager.shared.viewModel?.updateTrips()
+//                            }
+//                        }
+//                    }
+//                }
             } else if let error = viewModel.tripError {
                 Text("\(error)")
             } else {
